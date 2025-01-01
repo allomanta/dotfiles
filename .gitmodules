@@ -1,0 +1,6 @@
+[submodule ".config/zsh/helix-mode"]
+	path = .config/zsh/helix-mode
+	url = git@github.com:allomanta/zsh-helix-mode.git
+[submodule ".scripts/batry"]
+	path = .scripts/batry
+	url = git@github.com:shouya/batry.git

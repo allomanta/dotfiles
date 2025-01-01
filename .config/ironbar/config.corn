@@ -1,0 +1,329 @@
+let {
+    $tray = { type = "tray" }
+	$clock = {
+	    type = "clock"
+		format = "%l:%M %P   %d %B %Y "
+		format_popup = "%I:%M:%S %P"
+	}
+
+    $music = {
+      type = "music"
+      player_type = "mpris"
+      format = "{title}/{artist}"
+      truncate.mode = "end"
+      truncate.max_length = 30
+      icons.play = " "
+      icons.pause = " "
+      icons.prev = ""
+      icons.next = ""
+      music_dir = "/home/bluebyt/Music"
+    }
+
+    $tray = {
+        type = "tray"
+        icon_size = 14
+    }
+
+    $battery = {
+        type = "custom"
+        class = "battery"
+        bar = [{
+             type = "button"
+             on_click = "popup:toggle"
+             class = "batteryButton"
+             widgets = [{ 
+                  name = "battery"
+                  type = "cairo" 
+                  path = ".scripts/battery.lua" 
+                  frequency = 100 
+                  width = 96 
+                  height = 12 
+             }]
+        }]
+        popup = [{
+             name = "batteryPopUp"
+             type = "script"
+             mode = "watch"
+             cmd = "~/.scripts/batry/target/release/batry | jq -r --unbuffered '\"\\(.status): \\( if .time_to_empty then .time_to_empty else .time_to_full end ) remaining at \\( .wattage)w\"'"
+        }]
+    }
+
+   //  $cava = {
+   //      transition_type = "slide_end"
+   //      transition_duration = 750
+   //      name = "cava"
+   //      type = "script"
+   //      mode = "watch"
+   //      cmd = "/home/bluebyt/.config/ironbar/scripts/cava"
+   // }
+
+   $audio_use = {
+        name = "audio-use"
+        class = "audioUse"
+        type = "script"
+        mode = "watch"
+        cmd = "sway-audio-idle-inhibit --dry-print-both-waybar | jq -r --unbuffered .class | sed -u 's/output/󰽴/; s/input/󰍮/; s/-/ /; s/none/ /'"
+    }
+
+   $brightness = {
+        type = "custom"
+        name = "brightness"
+        class = "brightness"
+        bar = [{
+             type = "button"
+             on_click = "popup:toggle"
+             class = "brightnessButton"
+             widgets = [{
+                 class = "brightnessScript"
+                 type = "script"
+                 mode = "watch"
+                 cmd = "~/.scripts/get_brightness.zsh"
+            }]
+            on_scroll_down = "lightctl up"
+            on_scroll_up = "lightctl down"
+        }]
+        popup = [{
+             name = "brightnessPopUp"
+             type = "slider"
+             value = {
+                 type = "script"
+                 mode = "watch"
+                 cmd = "~/.scripts/get_brightness.zsh 1"
+            }
+             // value = "echo 80"
+             on_change = "!light -S ${0%.*}"
+             step = 1
+             min = 0
+             max = 100
+             length = 100
+        }]
+    
+    }
+
+    $volume = {
+      type = "volume"
+      format = "{icon} {percentage}%"
+      max_volume = 100
+      icons.volume_high = " "
+      icons.volume_medium = " "
+      icons.volume_low = " "
+      icons.muted = "󰝟 "
+      on_scroll_down = "volumectl up"
+      on_scroll_up = "volumectl down"
+      tooltip = "{{/home/bluebyt/.config/ironbar/scripts/volume}}%"
+    }
+
+    $wlogout = {
+        type = "custom"
+        bar = [
+            {
+                type = "button"
+                name = "wlogout"
+                class = "wlogout"
+                label = ""
+                on_click = "!wlogout"
+            }
+        ]
+    }
+
+    $bluetooth = {
+        type = "custom"
+        class = "btCustom"
+        bar = [{
+             type = "button"
+             on_click = "!wezterm start bluetui"  
+             class = "btButton"
+             widgets = [{ 
+                  name = "bt"
+                  class = "bt"
+                  type = "script"
+                  mode = "poll"
+                  cmd = "~/.scripts/bt-info.py"
+                  interval = 500
+            }]
+       }]
+    }
+
+   $wifi = {
+        type = "custom"
+        class = "wifiCustom"
+        bar = [{
+             type = "button"
+             on_click = "!iwmenu -m fuzzel"  
+             class = "wifiButton"
+             widgets = [{ 
+                  name = "wifi"
+                  class = "wifi"
+                  type = "script"
+                  mode = "poll"
+                  cmd = "~/.scripts/wifi-info.py"
+                  interval = 500
+            }]
+        }]
+    }
+
+   $ws1 = {
+        type = "custom"
+        class = "wsCustom"
+        bar = [{
+             type = "button"
+             on_click = "!~/.scripts/set-workspace.py 1"  
+             class = "wsButton"
+             widgets = [{ 
+                  name = "ws1"
+                  class = "ws1"
+                  type = "script"
+                  mode = "watch"
+                  cmd = "~/.scripts/detect-workspace.py 1"
+             }]
+        }]
+    }
+
+   $ws2 = {
+        type = "custom"
+        class = "wsCustom"
+        bar = [{
+             type = "button"
+             on_click = "!~/.scripts/set-workspace.py 2"  
+             class = "wsButton"
+             widgets = [{ 
+                  name = "ws2"
+                  class = "ws2"
+                  type = "script"
+                  mode = "watch"
+                  cmd = "~/.scripts/detect-workspace.py 2"
+             }]
+        }]
+    }
+
+   $ws3 = {
+        type = "custom"
+        class = "wsCustom"
+        bar = [{
+             type = "button"
+             on_click = "!~/.scripts/set-workspace.py 3"  
+             class = "wsButton"
+             widgets = [{ 
+                  name = "ws3"
+                  class = "ws3"
+                  type = "script"
+                  mode = "watch"
+                  cmd = "~/.scripts/detect-workspace.py 3"
+             }]
+        }]
+    }
+
+   $ws4 = {
+        type = "custom"
+        class = "wsCustom"
+        bar = [{
+             type = "button"
+             on_click = "!~/.scripts/set-workspace.py 4"  
+             class = "wsButton"
+             widgets = [{ 
+                  name = "ws4"
+                  class = "ws4"
+                  type = "script"
+                  mode = "watch"
+                  cmd = "~/.scripts/detect-workspace.py 4"
+             }]
+        }]
+    }
+
+   $ws5 = {
+        type = "custom"
+        class = "wsCustom"
+        bar = [{
+             type = "button"
+             on_click = "!~/.scripts/set-workspace.py 5"  
+             class = "wsButton"
+             widgets = [{ 
+                  name = "ws5"
+                  class = "ws5"
+                  type = "script"
+                  mode = "watch"
+                  cmd = "~/.scripts/detect-workspace.py 5"
+             }]
+        }]
+    }
+
+   $ws6 = {
+        type = "custom"
+        class = "wsCustom"
+        bar = [{
+             type = "button"
+             on_click = "!~/.scripts/set-workspace.py 6"  
+             class = "wsButton"
+             widgets = [{ 
+                  name = "ws6"
+                  class = "ws6"
+                  type = "script"
+                  mode = "watch"
+                  cmd = "~/.scripts/detect-workspace.py 6"
+             }]
+        }]
+    }
+
+   $ws7 = {
+        type = "custom"
+        class = "wsCustom"
+        bar = [{
+             type = "button"
+             on_click = "!~/.scripts/set-workspace.py 7"  
+             class = "wsButton"
+             widgets = [{ 
+                  name = "ws7"
+                  class = "ws7"
+                  type = "script"
+                  mode = "watch"
+                  cmd = "~/.scripts/detect-workspace.py 7"
+             }]
+        }]
+    }
+
+   $ws8 = {
+        type = "custom"
+        class = "wsCustom"
+        bar = [{
+             type = "button"
+             on_click = "!~/.scripts/set-workspace.py 8"  
+             class = "wsButton"
+             widgets = [{ 
+                  name = "ws8"
+                  class = "ws8"
+                  type = "script"
+                  mode = "watch"
+                  cmd = "~/.scripts/detect-workspace.py 8"
+             }]
+        }]
+    }
+
+   $ws9 = {
+        type = "custom"
+        class = "wsCustom"
+        bar = [{
+             type = "button"
+             on_click = "!~/.scripts/set-workspace.py 9"  
+             class = "wsButton"
+             widgets = [{ 
+                  name = "ws9"
+                  class = "ws9"
+                  type = "script"
+                  mode = "watch"
+                  cmd = "~/.scripts/detect-workspace.py 9"
+             }]
+        }]
+    }
+
+    $start = [ $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $music ]
+    $center = [ $clock ]
+    $end = [ $audio_use $tray $volume $brightness $battery $wifi $bluetooth $wlogout ]
+}
+in {
+        icon_theme = "Tela-circle-nord"
+        position = "top"
+        start = $start
+        center = $center
+        end = $end
+        height = 10
+}

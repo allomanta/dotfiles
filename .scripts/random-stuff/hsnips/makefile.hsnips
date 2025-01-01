@@ -1,0 +1,7 @@
+
+snippet gcc "Gcc single file" b
+
+$1:
+	gcc -Ofast -Wall -lm $1.c -o $1.o
+
+endsnippet

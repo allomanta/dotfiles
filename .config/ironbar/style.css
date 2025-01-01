@@ -1,0 +1,322 @@
+.container {
+    margin: 0px;
+    padding: 0px;
+    font-family: FiraCode Nerd Font;
+    font-size: 12px;
+    margin: 3px 3px 0px 3px;
+}
+
+/* .cava { */
+    /* padding: 0px 20px; */
+    /* margin-right: 8px; */
+    /* border-radius: 10px; */
+    /* color: #7dcfff; */
+    /* opacity: 0.8; */
+    /* box-shadow: rgba(0, 0, 0, 0.288) 2px 2px 5px 2px; */
+/* } */
+
+#bar {
+    background-color: #24273a;
+    opacity: 0.8;
+    border-radius: 20px;
+    border-color: #8839ef;
+    border-width: 2px;
+    border-style: solid;
+    padding: 0px 10px;
+}
+
+#bar #start {
+    margin: 0px;
+}
+
+#bar #center {
+    margin: 0px;
+}
+
+#bar #end {
+    margin: 0px;
+}
+
+.background {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.wlogout {
+    margin: 0px;
+    padding: 0px 8px 0px 5px;
+    color: #ed8796;
+    background: none;
+}
+.wlogout:hover {
+    color: #f5bde6;
+    background: #363a4f;
+    border-radius: 10px;
+    transition: all 0.1s ease-in-out;
+}
+.volume {
+    padding: 0px 10px;
+    color: #b8c0e0;
+    background: none;
+}
+
+.brightnessButton {
+    padding: 0px;
+    color: #b8c0e0;
+    background: none;
+}
+
+.brightnessButton:hover {
+    color: #cad3f5;
+    border-radius: 10px;
+    transition: all 0.1s ease-in-out;
+}
+
+.brightnessScript {
+    padding: 0px 10px;
+}
+
+.popup-brightness {
+    padding: 5px;
+    color: #c0caf5;
+    background-color: #24273a;
+    opacity: 0.8;
+    border-radius: 5px;
+    border-color: #B466FF;
+    border-width: 2px;
+    border-style: solid;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.audioUse {
+    padding: 0px 10px;
+    color: #eed49f;
+    background: none;
+}
+
+.volume:hover {
+    color: #cad3f5;
+    border-radius: 10px;
+    transition: all 0.1s ease-in-out;
+}
+
+.batteryButton {
+    background: none;
+    margin: 0px;
+    padding: 0px 10px;
+}
+
+.battery  {
+    background: none;
+    margin: 0px;
+    padding: 0px;
+}
+.popup-battery {
+    padding: 5px;
+    color: #c0caf5;
+    background-color: #24273a;
+    opacity: 0.8;
+    border-radius: 5px;
+    border-color: #B466FF;
+    border-width: 2px;
+    border-style: solid;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.popup-volume {
+    padding: 5px;
+    color: #c0caf5;
+    background-color: #24273a;
+    opacity: 0.8;
+    border-radius: 5px;
+    border-color: #B466FF;
+    border-width: 2px;
+    border-style: solid;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.tray {
+    opacity: 0.8;
+    margin: 0px 10px;
+    padding: 0px 10px;
+    background-color: black;
+    border-radius: 20px;
+    border-color: #B466FF;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.upower {
+    padding: 0px 10px;
+    color: #b8c0e0;
+    background: none;
+}
+.upower .icon {
+    color: green;
+}
+
+.popup-upower {
+    padding: 5px;
+    color: #b7bdf8;
+    background-color: #24273a;
+    opacity: 0.8;
+    border-radius: 5px;
+    border-color: #B466FF;
+    border-width: 2px;
+    border-style: solid;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.clock {
+    padding: 0px 10px;
+    color: #8aadf4;
+    background: none;
+}
+
+.clock:hover {
+    color: #b7bdf8;
+    border-radius: 10px;
+    transition: all 0.1s ease-in-out;
+}
+
+.popup-clock {
+    padding: 5px;
+    color: #b7bdf8;
+    background-color: #24273a;
+    opacity: 0.8;
+    border-radius: 5px;
+    border-color: #B466FF;
+    border-width: 2px;
+    border-style: solid;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.popup-clock .calendar-clock {
+    color: #b7bdf8;
+    padding-bottom: 1px;
+}
+
+.popup-clock .calendar {
+    color: #b7bdf8;
+    border-radius: 5px;
+    border: 1px solid #363a4f;
+}
+
+.popup-clock .calendar .header {
+    border: 1px solid #363a4f;
+    font-size: 1.5em;
+}
+
+.popup-clock .calendar:selected {
+    background-color: #494d64;
+}
+
+.wifiButton {
+    margin: 0px;
+    padding: 0px;
+    background: none;
+}
+
+.wifi {
+    margin: 0px;
+    padding: 0px 10px;
+    background: none;
+}
+
+.wifiButton:hover {
+    border-radius: 10px;
+    transition: all 0.1s ease-in-out;
+}
+
+.btButton {
+    margin: 0px;
+    padding: 0px;
+    background: none;
+}
+
+.bt {
+    margin: 0px;
+    padding: 0px 10px;
+    background: none;
+}
+
+.btButton:hover {
+    border-radius: 10px;
+    transition: all 0.1s ease-in-out;
+}
+
+.ws1,
+.ws2,
+.ws3,
+.ws4,
+.ws5,
+.ws6,
+.ws7,
+.ws8,
+.ws9 {
+    margin: 0px;
+    padding: 0px 8px 0px 4px;
+    background: none;
+}
+
+.wsButton {
+    margin: 0px;
+    color: #f5a97f;
+    padding: 0px;
+    background: none;
+}
+
+.wsButton:hover {
+    color: #eed49f;
+    border-radius: 10px;
+    transition: all 0.1s ease-in-out;
+}
+
+.music {
+    padding: 0px 10px;
+    margin: 0px 10px;
+    color: #ca9ee6;
+    background: none;
+}
+
+.music:hover {
+    color: #f4b8e4;
+    transition: all 0.1s ease-in-out;
+}
+
+.popup-music {
+    padding: 10px;
+    color: #b7bdf8;
+    background-color: #24273a;
+    opacity: 0.8;
+    border-radius: 5px;
+    border-color: #B466FF;
+    border-width: 2px;
+    border-style: solid;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.popup-music .volume .slider {
+    padding: 2px 2px 2px 2px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+tooltip.background {
+    background-color: rgba(00, 00, 00, 0.5);
+    font-size: 18px;
+    border-radius: 10px;
+    color: #fdfdfd;
+}
+
+tooltip * {
+    padding: 4px;
+    background-color: transparent;
+    color: white;
+}
+

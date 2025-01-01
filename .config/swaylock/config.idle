@@ -1,0 +1,10 @@
+grace=15
+screenshots
+fade-in=1
+effect-blur=4x3
+daemonize
+show-failed-attempts
+submit-on-touch
+clock
+indicator
+indicator-caps-lock

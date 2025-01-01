@@ -1,0 +1,108 @@
+global
+const vscode = require("vscode");
+var editor=vscode.window.activeTextEditor
+var document=editor.document
+
+function documentation(context) {
+    return context.scopes.some(s => s.includes("documentation"));
+}
+
+let selected = "";
+vscode.window.onDidChangeTextEditorSelection((e) => {
+    const newSelected = e.textEditor.document.getText(e.selections[0]);
+    if (newSelected) {
+        selected = newSelected;
+    }
+});
+endglobal
+
+priority 1
+snippet sec "Comment Section" bA
+// //``s = '='.repeat((72-(t[0].length + 2))/2); rv = s;`` $1 ``rv = '='.repeat(72-(t[0].length + 2 + s.length));``//
+$0
+endsnippet
+
+priority 10
+snippet ssec "Comment SubSection" bA
+// /``s = '-'.repeat((66-(t[0].length + 2))/2); rv = s;`` $1 ``rv = '-'.repeat(66-(t[0].length + 2 + s.length));``/
+$0
+endsnippet
+
+snippet comment "Block comment" b
+/**
+ * $1
+ */
+endsnippet
+
+snippet loginf "log information" bA
+_logger.LogInformation("$1", $0);
+endsnippet
+
+snippet logwarn "log warning" bA
+_logger.LogWarning("$1", $0);
+endsnippet
+
+snippet logdeb "log error" bA
+_logger.LogDebug("$1", $0);
+endsnippet
+
+snippet logerr "log error" bA
+_logger.LogError("$1", $0);
+endsnippet
+
+-------------------------------------------------------------------------------
+---- Documentation snippets
+-------------------------------------------------------------------------------
+
+context documentation(context)
+snippet <class "Class summary" wA
+Class <a>$1</a> models a $0.
+endsnippet
+
+context documentation(context)
+snippet <code "<code>" wA
+<code>
+$0
+</code>
+endsnippet
+
+context documentation(context)
+snippet <value "<value>" wA
+<value>
+$0
+</value>
+endsnippet
+
+context documentation(context)
+snippet <list "<list>" wA
+<list type="bullet">
+///     <item>
+///     $1
+///     </item>$0
+/// </list>
+endsnippet
+
+context documentation(context)
+snippet <item "<item>" wA
+<item>
+/// $1
+/// </item>$0
+endsnippet
+
+context documentation(context)
+snippet constructor "Constructor" wA
+Initializes the new <see cref="$1"/> to (<paramref name="$2"/>$0).
+endsnippet
+
+context documentation(context)
+snippet parref "Parameter reference" wA
+<paramref name="$1"/>$0
+endsnippet
+
+context documentation(context)
+snippet seeref "Parameter reference" wA
+<see cref="$1"/>$0
+endsnippet
+
+
+

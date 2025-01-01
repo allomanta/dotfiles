@@ -1,0 +1,70 @@
+global
+const vscode = require("vscode");
+var editor=vscode.window.activeTextEditor
+var document=editor.document
+
+function documentation(context) {
+    return context.scopes.some(s => s.includes("documentation"));
+}
+
+let selected = "";
+vscode.window.onDidChangeTextEditorSelection((e) => {
+    const newSelected = e.textEditor.document.getText(e.selections[0]);
+    if (newSelected) {
+        selected = newSelected;
+    }
+});
+endglobal
+
+snippet doc "doc comment" bA
+/**
+ * $0
+ */
+endsnippet
+
+priority 1
+snippet sec "Comment Section" bA
+// //``s = '='.repeat((72-(t[0].length + 2))/2); rv = s;`` $1 ``rv = '='.repeat(72-(t[0].length + 2 + s.length));``//
+$0
+endsnippet
+
+priority 10
+snippet ssec "Comment SubSection" bA
+// /``s = '-'.repeat((66-(t[0].length + 2))/2); rv = s;`` $1 ``rv = '-'.repeat(66-(t[0].length + 2 + s.length));``/
+$0
+endsnippet
+
+context documentation(context)
+snippet param "function paramter" wA
+@param $1 - $0
+endsnippet
+
+snippet log "console.log" bA
+console.log("$1", $0);
+endsnippet
+
+priority 10
+snippet ncomponent "New functional component" b
+import { type FC, type ReactElement } from 'react';
+
+const $1: FC = (): ReactElement => {
+    $0
+	return <div>$1</div>;
+};
+
+export default $1;
+endsnippet
+
+priority 1
+snippet component "New functional component" b
+const $1: FC = (): ReactElement => {
+    $0
+	return <div>$1</div>;
+};
+endsnippet
+
+snippet props "Props" b
+interface Props {
+    $0
+}
+endsnippet

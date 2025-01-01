@@ -1,0 +1,25 @@
+[user]
+	email = stevenmax888@gmail.com
+	name = Steven Lageveen
+
+[url "https://"]
+	insteadOf = git://
+
+[diff]
+	external = difft
+
+[merge "mergiraf"]
+	name = mergiraf
+	driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P
+
+[init]
+	defaultBranch = main
+
+[credential]
+	helper = cache --timeout=28800
+
+[pull]
+	rebase = true
+
+[core]
+	attributesfile = ~/.config/git/attributes

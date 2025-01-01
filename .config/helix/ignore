@@ -1,0 +1,14 @@
+*cache*
+*Cache*
+node_modules
+.python-version
+bin/
+Debug
+obj
+build
+dist/
+pnpm-lock.yaml
+.org.chromium.Chromium*
+Code/Crashpad
+*.so
+package-lock.json

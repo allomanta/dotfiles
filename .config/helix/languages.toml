@@ -1,0 +1,329 @@
+[[language]]
+name = "rust"
+auto-format = true
+
+[[language]]
+name = "c"
+formatter = { command = 'clang-format'}
+auto-format = true
+indent = { tab-width = 4, unit = "\t" }
+
+[[language]]
+name = "cpp"
+formatter = { command = 'clang-format'}
+auto-format = true
+indent = { tab-width = 4, unit = "\t" }
+
+[language-server.htmx-ls]
+command = "htmx-lsp2"
+
+[[language]]
+name = "typst"
+scope = "source.typst"
+injection-regex = "typst"
+roots = []
+comment-token = "//"
+file-types = ["typ"]
+indent = { tab-width = 2, unit = "\t" }
+language-servers = ["typst-lsp"]
+formatter = { command = "typstyle"}
+auto-format = true
+soft-wrap.wrap-at-text-width = true
+
+[language-server.typst-lsp]
+command = "typst-lsp"
+
+[[language]]
+name = "c-sharp"
+language-servers = ["csharp-ls"]
+indent = { tab-width = 4, unit = "\t" }
+auto-format = true
+formatter = { command = "dotnet-csharpier" }
+
+[language-server.omnisharp]
+command = "omnisharp"
+args = ["--languageserver"]
+
+[language-server.csharp-ls]
+command = "csharp-ls"
+
+[[language]]
+name = "toml"
+formatter = { command = "taplo", args = ["format", "-"] }
+auto-format = true
+
+[[language]]
+name = "lua"
+formatter = { command = "stylua" }
+auto-format = true
+
+[[language]]
+name = "python"
+language-servers = [ "pyright", "ruff" ]
+auto-format = true
+
+[language-server.pyright.config.python.analysis]
+typeCheckingMode = "off"
+autoImportCompletions = true
+diagnosticSeverityOverrides.reportOptionalSubscript = "none"
+
+[language-server.ruff]
+command = "ruff-lsp"
+
+[language-server.ruff.config.settings]
+args = ["--ignore", "E501"]
+
+[language.formatter]
+command = "black"
+args = ["--line-length", "120", "--quiet", "-"]
+
+[[language]]
+name = "typescript"
+language-servers = [
+  "typescript-language-server",
+  "eslint",
+  "emmet-ls",
+  "tailwindcss-ls",
+]
+formatter = { command = 'prettier', args = [
+  "--config",
+  "/home/steven/Nextcloud/Documents/Werk/IguideME/IguideME.Web/Frontend/.prettierrc",
+  "--parser",
+  "typescript",
+] }
+indent = { tab-width = 2, unit = "\t" }
+auto-format = true
+
+[[language]]
+name = "tsx"
+language-servers = [
+  "typescript-language-server",
+  "eslint",
+  "emmet-ls",
+  "tailwindcss-ls",
+]
+formatter = { command = 'prettier', args = [
+  "--config",
+  "/home/steven/Nextcloud/Documents/Werk/IguideME/IguideME.Web/Frontend/.prettierrc",
+  "--parser",
+  "typescript",
+] }
+indent = { tab-width = 2, unit = "\t" }
+auto-format = true
+
+[[language]]
+name = "jsx"
+language-servers = [
+  "typescript-language-server",
+  "eslint",
+  "emmet-ls",
+  "tailwindcss-ls",
+]
+grammar = "javascript"
+formatter = { command = 'prettier', args = [
+  "--config",
+  "/home/steven/Nextcloud/Documents/Werk/IguideME/IguideME.Web/Frontend/.prettierrc",
+  "--parser",
+  "typescript",
+] }
+indent = { tab-width = 2, unit = "\t" }
+auto-format = true
+
+[[language]]
+name = "javascript"
+language-servers = [
+  "typescript-language-server",
+  "eslint",
+  "emmet-ls",
+  "tailwindcss-ls",
+]
+formatter = { command = 'prettier', args = [
+  "--config",
+  "/home/steven/Nextcloud/Documents/Werk/IguideME/IguideME.Web/Frontend/.prettierrc",
+  "--parser",
+  "typescript",
+] }
+indent = { tab-width = 2, unit = "\t" }
+auto-format = true
+
+
+[[language]]
+name = "json"
+language-servers = ["vscode-json-language-server"]
+formatter = { command = 'prettier', args = ["--parser", "json"] }
+indent = { tab-width = 2, unit = "\t" }
+auto-format = true
+
+[language-server.vscode-json-language-server.config]
+json = { validate = { enable = true }, format = { enable = true } }
+provideFormatter = true
+
+[language-server.vscode-css-language-server.config]
+css = { validate = { enable = true } }
+scss = { validate = { enable = true } }
+less = { validate = { enable = true } }
+provideFormatter = true
+
+# Setup for django templates, requires a  <project_directory>/.helix/languages.toml with 
+# [[language]]
+# name = "htmldjango"
+# scope = "source.htmldjango"
+# injection-regex = "htmldjango"
+# file-types = ["html"]
+# roots = ["manage.py"]
+# auto-format = true
+# formatter = { command = "djlint", args = ["-", "--reformat", "--quiet"] }
+# language-servers = ["vscode-html-language-server", "emmet-ls", "tailwindcss-ls"]
+
+# [[grammar]]
+# name = "htmldjango"
+# source = { git = "https://github.com/interdependence/tree-sitter-htmldjango" , rev = "184a50456186c2ff49b9b410f7060a176e2a3080" } 
+
+[[language]]
+name = "html"
+formatter = { command = 'prettier', args = [
+  "--config",
+  "/home/steven/Nextcloud/Documents/Werk/IguideME/IguideME.Web/Frontend/.prettierrc",
+  "--parser",
+  "html",
+] }
+language-servers = ["vscode-html-language-server", "emmet-ls", "tailwindcss-ls", "htmx-ls"]
+auto-format = true
+
+[[language]]
+name = "css"
+formatter = { command = 'prettier', args = [
+  "--config",
+  "/home/steven/Nextcloud/Documents/Werk/IguideME/IguideME.Web/Frontend/.prettierrc",
+  "--parser",
+  "css",
+] }
+language-servers = ["vscode-css-language-server", "emmet-ls", "tailwindcss-ls"]
+auto-format = false
+
+[language-server.emmet-ls]
+args = ["--stdio"]
+command = "emmet-language-server"
+
+[language-server.eslint]
+args = ["--stdio"]
+command = "vscode-eslint-language-server"
+
+[language-server.eslint.config]
+format = true
+nodePath = ""
+onIgnoredFiles = "off"
+packageManager = "yarn"
+quiet = false
+rulesCustomizations = []
+run = "onType"
+useESLintClass = false
+validate = "on"
+codeAction = { disableRuleComment = { enable = true, location = "separateLine" }, showDocumentation = { enable = true } }
+codeActionOnSave = { mode = "all" }
+experimental = {}
+problems = { shortenToSingleLine = false }
+workingDirectory = { mode = "auto" }
+
+[language-server.typescript-language-server.config]
+documentFormatting = false
+hostInfo = "helix"
+
+[language-server.typescript-language-server.config.typescript.inlayHints]
+includeInlayEnumMemberValueHints = true
+includeInlayFunctionLikeReturnTypeHints = true
+includeInlayFunctionParameterTypeHints = true
+includeInlayParameterNameHints = "all"
+includeInlayParameterNameHintsWhenArgumentMatchesName = true
+includeInlayPropertyDeclarationTypeHints = true
+includeInlayVariableTypeHints = true
+
+[language-server.typescript-language-server.config.completions]
+completeFunctionCalls = true
+
+[language-server.typescript-language-server.config.javascript.inlayHints]
+includeInlayEnumMemberValueHints = true
+includeInlayFunctionLikeReturnTypeHints = true
+includeInlayFunctionParameterTypeHints = true
+includeInlayParameterNameHints = "all"
+includeInlayParameterNameHintsWhenArgumentMatchesName = true
+includeInlayPropertyDeclarationTypeHints = true
+includeInlayVariableTypeHints = true
+
+[language-server.rust-analyzer.config.inlayHints]
+inlayHints.bindingModeHints.enable = false
+inlayHints.closingBraceHints.minLines = 10
+inlayHints.closureReturnTypeHints.enable = "with_block"
+inlayHints.discriminantHints.enable = "fieldless"
+inlayHints.lifetimeElisionHints.enable = "skip_trivial"
+inlayHints.typeHints.hideClosureInitialization = false
+
+[language-server.rust-analyzer.config.check]
+command = "clippy"
+
+
+[[language]]
+name = "bash"
+scope = "source.bash"
+injection-regex = "(shell|bash|zsh|sh)"
+file-types = [
+  "sh",
+  "bash",
+  "ash",
+  "dash",
+  "ksh",
+  "mksh",
+  "zsh",
+  "zshenv",
+  "zlogin",
+  "zlogout",
+  "zprofile",
+  "zshrc",
+  "eclass",
+  "ebuild",
+  "bazelrc",
+  "Renviron",
+  "zsh-theme",
+  "cshrc",
+  "tcshrc",
+  "bashrc_Apple_Terminal",
+  "zshrc_Apple_Terminal",
+  { glob = "i3/config" },
+  { glob = "sway/config" },
+  { glob = "tmux.conf" },
+  { glob = ".bash_history" },
+  { glob = ".bash_login" },
+  { glob = ".bash_logout" },
+  { glob = ".bash_profile" },
+  { glob = ".bashrc" },
+  { glob = ".profile" },
+  { glob = ".zshenv" },
+  { glob = ".zlogin" },
+  { glob = ".zlogout" },
+  { glob = ".zprofile" },
+  { glob = ".zshrc" },
+  { glob = ".zimrc" },
+  { glob = "APKBUILD" },
+  { glob = ".bash_aliases" },
+  { glob = ".Renviron" },
+  { glob = ".xprofile" },
+  { glob = ".xsession" },
+  { glob = ".xsessionrc" },
+  { glob = ".yashrc" },
+  { glob = ".yash_profile" },
+  { glob = ".hushlogin" },
+]
+shebangs = ["sh", "bash", "dash", "zsh"]
+comment-token = "#"
+language-servers = [ "bash-language-server" ]
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "corn"
+file-types = ["corn"]
+comment-tokens = ["//"]
+scope = "sources.corn"
+
+[[grammar]]
+name = "corn"
+source = { git = "https://github.com/corn-config/tree-sitter-corn.git" , rev = "464654742cbfd3a3de560aba120998f1d5dfa844" } 

@@ -1,0 +1,59 @@
+snippet template "Basic plot template" b
+import numpy as np
+import matplotlib.pyplot as plt
+
+class gradient:
+    def __init__(self, it):
+        self.it = list(it)
+    def __iter__(self):
+        l = zip(np.linspace(1, 0, len(self.it)), self.it)
+        return (((0.4*c, 1.0-c*0.6 - 0.2, c), v) for c, v in l)
+
+markers = ['o', '^', 'v', 'd', 's', 'X', 'p', 'P']
+
+
+if __name__ == '__main__':
+	print('Hello')
+	$0
+
+endsnippet
+
+
+snippet plot_data "Basic data plot function" b
+def plot_data_$1(file_format, $2_values):
+    plt.figure(figsize=(5, 4))
+
+    for colour, $2 in gradient($2_values):
+		data = np.genfromtxt(file_format % $2).T
+		plt.plot(data[0], data[1], c=colour)
+		$0
+    plt.legend()
+    plt.title('$1 over $2')
+    plt.xlabel('$2')
+    plt.ylabel('$1')
+    plt.tight_layout()
+    plt.grid()
+    plt.savefig('tex/plot_$1_over_$2.pdf')
+    plt.show()
+endsnippet
+
+snippet plot_hist "Basic data hist function" b
+def plot_data_$1(file_format, $2_values):
+    plt.figure(figsize=(5, 4))
+
+    for colour, $2 in gradient($2_values):
+		data = np.genfromtxt(file_format % $2)
+		hist, edges, total_hits = np.hist(data, bins=10)
+
+		plt.plot(data[0], (bin_centers[1:] + bin_centers[:-1])/2, c=colour,
+			marker=marker)
+		$0
+    plt.legend()
+    plt.title('$1 over $2')
+    plt.xlabel('$2')
+    plt.ylabel('$1')
+    plt.tight_layout()
+    plt.grid()
+    plt.savefig('tex/plot_$1_over_$2.pdf')
+    plt.show()
+endsnippet
