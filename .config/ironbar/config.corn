@@ -2,7 +2,7 @@ let {
     $tray = { type = "tray" }
 	$clock = {
 	    type = "clock"
-		format = "%l:%M %P   %d %B %Y "
+		format = "%l:%M %P   %e %B %Y "
 		format_popup = "%I:%M:%S %P"
 	}
 
