@@ -23,4 +23,6 @@ alias rm='gio trash'
 
 alias dush='du -sh * | sort -hr'
 
+alias zl-attach="source $HOME/.scripts/zellij-sessions.sh"
+
 alias pacman-installed=$'pacman -Qq | fzf --preview \'pacman -Qil {}\' --layout=reverse --bind \'enter:execute(pacman -Qil {} | less)\''
