@@ -12,7 +12,8 @@ if [ "{$ZELLIJ}" ] && [ -z "${ZELLIJ_SESSION_NAME}" ]; then
       "$(echo "${ZJ_SESSIONS}" | fzf)"
     fi
   else
-    read SESS\?"Session name : "
-    zellij attach -c "${SESS}"
+    SESSION="Tmp-$(date +%s)"
+    vared -p "Session name: " SESSION
+    zellij attach -c "${SESSION}"
   fi
 fi
