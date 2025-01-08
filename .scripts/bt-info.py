@@ -28,7 +28,7 @@ if not adapter.Powered:
 else:
     name = first_connected_device()
     if name:
-        print(f'<span color="{green}">{name} </span>')
+        print(f'<span color="{green}">{name[:15] + (name[15:] and '...')} </span>')
     else:
         color = green
         if not adapter.Discoverable and adapter.Pairable:
