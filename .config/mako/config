@@ -19,3 +19,6 @@ border-color=#d08770
 border-color=#000000
 background-color=#f53c3c
 default-timeout=0
+
+[mode=dnd]
+invisible=1
