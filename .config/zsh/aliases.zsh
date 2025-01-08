@@ -16,7 +16,7 @@ alias rerun="$HOME/.scripts/rerun.sh"
 
 alias rga-fzf='with-env {FZF_DEFAULT_OPTS: "--ansi"} {rga-fzf}'
 
-alias ls='exa -l --git --icons'
+alias ls='exa -l --git --icons --hyperlink --group-directories-first -h -o --no-permissions'
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias rm='gio trash'
