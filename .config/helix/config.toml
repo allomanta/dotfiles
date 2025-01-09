@@ -54,3 +54,4 @@ w = ["save_selection", "goto_word"]
 
 [keys.normal.space]
 o = "file_picker_in_current_buffer_directory"
+F = ":sh zellij run -c -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.config/helix/yazi-picker.sh open"
