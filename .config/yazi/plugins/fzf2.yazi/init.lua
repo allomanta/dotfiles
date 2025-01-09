@@ -22,6 +22,7 @@ local function entry()
 	end
 
 	local target = output.stdout:gsub("\n$", "")
+	target = target:gsub(": .*", "")
 	if target ~= "" then
 		ya.manager_emit(target:find("[/\\]$") and "cd" or "reveal", { target })
 	end
