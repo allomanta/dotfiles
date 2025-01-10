@@ -6,6 +6,10 @@ keybinds clear-defaults=true {
         bind "s" { SwitchToMode "Scroll"; }
         bind "z" { SwitchToMode "Session"; }
         bind "t" { SwitchToMode "Tab"; }
+        bind "h" { MoveFocusOrTab "Left"; }
+        bind "l" { MoveFocusOrTab "Right"; }
+        bind "j" { MoveFocus "Down"; }
+        bind "k" { MoveFocus "Up"; }
     }
 
     // Treat this as insert mode
@@ -153,7 +157,7 @@ keybinds clear-defaults=true {
         bind "Esc" { SwitchToMode "Normal"; }
     }
 
-    shared_except "entersearch" "locked" {
+    shared_except "entersearch" "locked" "renamepane" "renametab"{
         bind "i" { SwitchToMode "Locked"; }
     }
 }
@@ -184,7 +188,7 @@ theme "catppuccin-macchiato"
 // The name of the default layout to load on startup
 // Default: "default"
 //
-// default_layout "compact"
+default_layout "compact"
 
 // Choose the mode that zellij uses when starting up.
 // Default: normal
