@@ -43,7 +43,7 @@ keybinds clear-defaults=true {
         bind "n" { NewPane "Right"; }
         bind "d" { CloseFocus; }
         bind "D" { CloseFocus; SwitchToMode "Normal"; }
-        bind "f" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+        bind "f" { ToggleFocusFullscreen; }
         bind "z" { TogglePaneFrames; }
         bind "w" { ToggleFloatingPanes; }
         bind "e" { TogglePaneEmbedOrFloating; }
