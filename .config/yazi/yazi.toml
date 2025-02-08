@@ -38,7 +38,7 @@ libreoffice = [
 ]
 shell = [{ run = 'cd "$@"; $SHELL', desc = "Open shell here", block = true }]
 open = [
-  { run = 'xdg-open "$@"', desc = "Open", for = "linux" },
+  { run = 'nohup xdg-open "$@"', desc = "Open", for = "linux" },
   { run = 'open "$@"', desc = "Open", for = "macos" },
   { run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
 ]

@@ -26,3 +26,13 @@ alias dush='du -sh * | sort -hr'
 alias zl-attach="source $HOME/.scripts/zellij-sessions.sh"
 
 alias pacman-installed=$'pacman -Qq | fzf --preview \'pacman -Qil {}\' --layout=reverse --bind \'enter:execute(pacman -Qil {} | less)\''
+
+nav() { 
+    target=$(yazi --chooser-file=/dev/stdout)
+    
+    if [ -d "$target" ] || [ -z "$target" ]; then
+        builtin cd "$target"
+    else
+        builtin cd "${target%/*}"
+    fi
+}
