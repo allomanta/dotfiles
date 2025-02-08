@@ -35,7 +35,7 @@ let {
                   name = "battery"
                   type = "cairo" 
                   path = ".scripts/battery.lua" 
-                  frequency = 100 
+                  frequency = 1000 
                   width = 96 
                   height = 12 
              }]
@@ -79,8 +79,8 @@ let {
                  mode = "watch"
                  cmd = "~/.scripts/get_brightness.zsh"
             }]
-            on_scroll_down = "lightctl up"
-            on_scroll_up = "lightctl down"
+            on_scroll_down = "lightctl down"
+            on_scroll_up = "lightctl up"
         }]
         popup = [{
              name = "brightnessPopUp"
@@ -108,8 +108,8 @@ let {
       icons.volume_medium = " "
       icons.volume_low = " "
       icons.muted = "󰝟 "
-      on_scroll_down = "volumectl up"
-      on_scroll_up = "volumectl down"
+      on_scroll_down = "volumectl down"
+      on_scroll_up = "volumectl up"
       tooltip = "{{/home/bluebyt/.config/ironbar/scripts/volume}}%"
     }
 
@@ -139,7 +139,7 @@ let {
                   type = "script"
                   mode = "poll"
                   cmd = "~/.scripts/bt-info.py"
-                  interval = 500
+                  interval = 1000
             }]
        }]
     }
