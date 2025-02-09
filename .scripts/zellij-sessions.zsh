@@ -1,25 +1,13 @@
 ZJ_SESSIONS=$(zellij list-sessions -s | grep -v "Tmp" )
-# ZJ_SESSIONS=$(zellij list-sessions -n | grep -v "EXITED" | sed "s/\s\[[^]]*\]\s//g" )
-NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
 
 if [ "{$ZELLIJ}" ] && [ -z "${ZELLIJ_SESSION_NAME}" ]; then
-  echo -ne "Active Zellij sessions :\n\n"
-  echo $ZJ_SESSIONS
-  echo -ne '\n'
+  echo ${ZJ_SESSIONS}| fzf --border --border-label "Choose/create Zellij session (blank for tmp)" --layout reverse --height 50% --print-query | { read INPUT; read SELECTION; }
 
-  if [ "${NO_SESSIONS}" -le 0 ]; then
-    zellij attach \
-    "$(echo "${ZJ_SESSIONS}" | fzf)"
-  fi
-
-  read REPLY\?"New zellij session [y/N] ? "
-
-  if [ "${REPLY}" = "y" ]; then
+  if [ -z "${INPUT}"]; then
     SESSION="Tmp-$(date +%s)"
-    vared -p "Session name: " SESSION
-    zellij attach -c "${SESSION}"
   else
-    zellij attach \
-    "$(echo "${ZJ_SESSIONS}" | fzf)"
-  fi
+    SESSION=$SELECTION
+  fi 
+
+  zellij attach -c "${SESSION}"
 fi

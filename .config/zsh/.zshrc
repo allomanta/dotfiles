@@ -6,9 +6,6 @@ autoload -Uz compinit; compinit
 _comp_options+=(globdots) # With hidden files
 source "$ZDOTDIR"/completions.zsh
 
-
-
-
 # Options
 export HISTFILE="$ZDOTDIR"/.zhistory    # History filepath
 export HISTSIZE=100000                   # Maximum events for internal history
@@ -26,4 +23,5 @@ eval "$(zoxide init zsh --cmd cd)"
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.scripts/zellij-sessions.zsh
+
+source /home/steven/.scripts/zellij-sessions.zsh
