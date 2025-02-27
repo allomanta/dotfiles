@@ -8,5 +8,30 @@ use = "yazi-rs/plugins:mount"
 rev = "0725851"
 hash = "b80e65240c1d0651e87d0200522bb079"
 
+[[plugin.deps]]
+use = "pirafrank/what-size"
+rev = "b23e3a4"
+hash = "98e5f5af3efd3ba8bc2db0720187cc83"
+
+[[plugin.deps]]
+use = "Lil-Dank/lazygit"
+rev = "9f924e3"
+hash = "2b0c33928986f126d5c5a4cac31a6b46"
+
+[[plugin.deps]]
+use = "boydaihungst/restore"
+rev = "a7a6e5e"
+hash = "4d6e6cc76c8ce08b5f6f344aa9413034"
+
+[[plugin.deps]]
+use = "AnirudhG07/plugins-yazi:copy-file-contents"
+rev = "524c52c"
+hash = "27c50e6bc15c09096505b805b238ade0"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:git"
+rev = "5186af7"
+hash = "771f18427fb75fb19990ce602bb322f4"
+
 [flavor]
 deps = []
