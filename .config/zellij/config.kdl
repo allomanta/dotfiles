@@ -6,6 +6,8 @@ keybinds clear-defaults=true {
         bind "s" { SwitchToMode "Scroll"; }
         bind "z" { SwitchToMode "Session"; }
         bind "t" { SwitchToMode "Tab"; }
+        bind "n" { NewTab; SwitchToMode "Locked"; }
+        bind "f" { ToggleFocusFullscreen; }
         bind "h" { MoveFocusOrTab "Left"; }
         bind "l" { MoveFocusOrTab "Right"; }
         bind "j" { MoveFocus "Down"; }
