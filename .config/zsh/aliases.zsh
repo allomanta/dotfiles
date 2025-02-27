@@ -11,6 +11,7 @@ alias helix='hx'
 
 alias murderbot='ssh -p 3141 steven@local.lageveen.co'
 alias mtmurder='sshfs -o reconnect,ServerAliveInterval=5,ServerAliveCountMax=3 -p 3141 steven@local.lageveen.co:. ~/Murderbot'
+alias umtmurder='fusermount3 -u ~/Murderbot'
 
 alias rerun="$HOME/.scripts/rerun.sh"
 
