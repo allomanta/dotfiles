@@ -1,4 +1,16 @@
 [[language]]
+name = "tek"
+scope = "source.tek"
+injection-regex = "tek"
+roots = []
+comment-token = "//"
+file-types = ["ct", "tek"]
+
+[[grammar]]
+name = "tek"
+source.path = "/home/steven/Documents/Programming/Teksty/tree-sitter-tek" 
+
+[[language]]
 name = "rust"
 auto-format = true
 
