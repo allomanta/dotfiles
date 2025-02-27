@@ -9,6 +9,9 @@ preview-completion-insert = false
 soft-wrap = { enable = true }
 popup-border = "all"
 
+[editor.statusline]
+center = ["file-type"]
+
 [editor.file-picker]
 git-ignore = false
 ignore = true
@@ -48,6 +51,9 @@ A-k = "half_page_up"
 A-j = "half_page_down"
 A-l = "goto_next_buffer"
 A-h = "goto_previous_buffer"
+
+[keys.normal.space."."]
+h = ":toggle-option lsp.display-inlay-hints"
 
 [keys.normal.g]
 w = ["save_selection", "goto_word"]
