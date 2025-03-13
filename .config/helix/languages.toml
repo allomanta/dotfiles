@@ -339,3 +339,42 @@ scope = "sources.corn"
 [[grammar]]
 name = "corn"
 source = { git = "https://github.com/corn-config/tree-sitter-corn.git" , rev = "464654742cbfd3a3de560aba120998f1d5dfa844" } 
+
+# Latex
+
+[language-server.ltex]
+command = "ltex-ls-plus"
+
+[language-server.texlab]
+command = "texlab"
+
+[[language]]
+name = "latex"
+language-servers = ["texlab", "ltex-ls-plus"]
+
+[language-server.texlab.config.texlab]
+auxDirectory = "aux"
+
+[language-server.texlab.config.texlab.chktex]
+onOpenAndSave = true
+onEdit = true
+
+
+[language-server.texlab.config.texlab.build]
+forwardSearchAfter = true
+onSave = true
+executable = "tectonic"
+args = [
+	"-X",
+	"compile",
+	"%f",
+	"--synctex",
+	"--keep-logs",
+	"--keep-intermediates",
+	"--outdir=aux",
+]
+
+[language-server.texlab.config.texlab.forwardSearch]
+executable = "zathura"
+args = [ "--synctex-forward", "%l:%c:%f", "%p" ]
+
