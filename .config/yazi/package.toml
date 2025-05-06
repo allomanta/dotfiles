@@ -29,9 +29,9 @@ rev = "524c52c"
 hash = "27c50e6bc15c09096505b805b238ade0"
 
 [[plugin.deps]]
-use = "yazi-rs/plugins:git"
-rev = "5186af7"
-hash = "771f18427fb75fb19990ce602bb322f4"
+use = "yazi-rs/plugins:vcs-files"
+rev = "4b027c7"
+hash = "36405f8781fcaf33ceab24dffd5cea19"
 
 [flavor]
 deps = []

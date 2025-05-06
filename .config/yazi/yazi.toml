@@ -143,7 +143,7 @@ preloaders = [
   { mime = "application/pdf", run = "pdf" },
 ]
 previewers = [
-  { name = "*/", run = "folder", sync = true },
+  { name = "*/", run = "folder" },
   # Code
   { name = "*.tek", run = "tek-previewer" },
   { mime = "text/*", run = "code" },
@@ -240,13 +240,3 @@ sort_reverse = false
 
 [log]
 enabled = false
-
-[[plugin.prepend_fetchers]]
-id   = "git"
-name = "*"
-run  = "git"
-
-[[plugin.prepend_fetchers]]
-id   = "git"
-name = "*/"
-run  = "git"

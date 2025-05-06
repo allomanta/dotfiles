@@ -1,12 +1,6 @@
 require("zoxide"):setup {
     update_db = true,
 }
-require("git"):setup()
-
--- ~/.config/yazi/init.lua
-THEME.git = THEME.git or {}
-THEME.git.modified_sign = "M"
-THEME.git.deleted_sign = "D"
 
 Status:children_add(function()
 	local h = cx.active.current.hovered
