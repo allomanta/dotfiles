@@ -37,13 +37,21 @@ roots = []
 comment-token = "//"
 file-types = ["typ"]
 indent = { tab-width = 2, unit = "\t" }
-language-servers = ["typst-lsp"]
+language-servers = ["tinymist"]
 formatter = { command = "typstyle"}
 auto-format = true
 soft-wrap.wrap-at-text-width = true
 
-[language-server.typst-lsp]
-command = "typst-lsp"
+[language-server.tinymist]
+command = "tinymist"
+
+[language-server.tinymist.config]
+preview.background.enabled = true
+preview.background.args = [
+  "--data-plane-host=127.0.0.1:23635",
+  # "--invert-colors=auto",
+  "--open"
+]
 
 [[language]]
 name = "c-sharp"
