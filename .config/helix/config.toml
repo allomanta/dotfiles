@@ -60,4 +60,13 @@ w = ["save_selection", "goto_word"]
 
 [keys.normal.space]
 o = "file_picker_in_current_buffer_directory"
-F = ":sh zellij run -c -f -x 8%% -y 8%% --width 85%% --height 85%% -- zsh ~/.config/helix/yazi-picker.sh %{buffer_name} open"
+# F = ":sh zellij run -c -f -x 8%% -y 8%% --width 85%% --height 85%% -- zsh ~/.config/helix/yazi-picker.sh %{buffer_name} open"
+F = [
+  ':sh rm -f /tmp/unique-file',
+  ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
+  ':insert-output echo "\x1b[?1049h\x1b[?2004h" > /dev/tty',
+  ':open %sh{cat /tmp/unique-file}',
+  ':redraw',
+  ':set mouse false',
+  ':set mouse true',
+]
