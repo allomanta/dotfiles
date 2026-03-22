@@ -1,5 +1,5 @@
 #!/bin/env python3
-from wayfire import WayfireSocket, get_msg_template
+from wayfire import WayfireSocket
 import sys
 
 if len(sys.argv) > 1:
@@ -7,8 +7,4 @@ if len(sys.argv) > 1:
 
     sock = WayfireSocket()
 
-    msg = get_msg_template("vswitch/set-workspace")
-    msg["data"]["x"] = x
-    msg["data"]["y"] = y
-    msg["data"]["output-id"] = 1
-    sock.send_json(msg)
+    sock.set_workspace(x, y)
