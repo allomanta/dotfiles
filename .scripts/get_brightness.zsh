@@ -1,9 +1,11 @@
 #!/bin/zsh
-inotifywait -q -m -e close_write /sys/class/backlight/intel_backlight/brightness |
+max_brightness=$(</sys/class/backlight/amdgpu_bl2/max_brightness)
+inotifywait -q -m -e close_write /sys/class/backlight/amdgpu_bl2/brightness|
+
 
 while 
-  brightness=$(</sys/class/backlight/intel_backlight/brightness)
-  percentage=$((brightness / 960))
+  brightness=$(</sys/class/backlight/amdgpu_bl2/brightness)
+  percentage=$((brightness * 100 / max_brightness))
 
   if [[ $1 ]]; then
     echo $percentage
