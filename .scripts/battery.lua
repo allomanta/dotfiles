@@ -74,3 +74,5 @@ function draw(cr)
 
     return 0
 end
+
+return draw
