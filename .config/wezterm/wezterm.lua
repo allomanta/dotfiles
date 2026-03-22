@@ -35,15 +35,15 @@ config.keys = {
     mods = 'ALT',
     action = wezterm.action.DisableDefaultAssignment,
   },
-  { 
+  {
     key = "UpArrow",
     mods = "SHIFT",
     action = wezterm.action.ScrollToPrompt(-1)
   },
- { 
-    key = "DownArrow", 
-    mods = "SHIFT", 
-    action = wezterm.action.ScrollToPrompt(1) 
+ {
+    key = "DownArrow",
+    mods = "SHIFT",
+    action = wezterm.action.ScrollToPrompt(1)
   },
 }
 
