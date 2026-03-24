@@ -14,20 +14,34 @@ source.path = "/home/steven/Documents/Programming/Teksty/tree-sitter-tek"
 name = "rust"
 auto-format = true
 
+[language.debugger]
+name = "lldb-dap"
+transport = "stdio"
+command = "lldb-dap"
+
+[[language.debugger.templates]]
+name = "binary"
+request = "launch"
+completion = [{ name = "binary", completion = "filename" }]
+args = { program = "{0}", initCommands = [
+  "command script import /usr/local/etc/lldb_dap_rustc_primer.py",
+] }
+
+
 [[language]]
 name = "c"
-formatter = { command = 'clang-format'}
+formatter = { command = 'clang-format' }
 auto-format = true
 indent = { tab-width = 4, unit = "\t" }
 
 [[language]]
 name = "cpp"
-formatter = { command = 'clang-format'}
+formatter = { command = 'clang-format' }
 auto-format = true
 indent = { tab-width = 4, unit = "\t" }
 
-[language-server.htmx-ls]
-command = "htmx-lsp2"
+# [language-server.htmx-ls]
+# command = "htmx-lsp2"
 
 [[language]]
 name = "typst"
@@ -38,7 +52,7 @@ comment-token = "//"
 file-types = ["typ"]
 indent = { tab-width = 2, unit = "\t" }
 language-servers = ["tinymist"]
-formatter = { command = "typstyle"}
+formatter = { command = "typstyle" }
 auto-format = true
 soft-wrap.wrap-at-text-width = true
 
@@ -50,7 +64,7 @@ preview.background.enabled = true
 preview.background.args = [
   "--data-plane-host=127.0.0.1:23635",
   # "--invert-colors=auto",
-  "--open"
+  "--open",
 ]
 
 [[language]]
@@ -79,7 +93,7 @@ auto-format = true
 
 [[language]]
 name = "python"
-language-servers = [ "pyright", "ruff" ]
+language-servers = ["pyright", "ruff"]
 auto-format = true
 
 [language-server.pyright.config.python.analysis]
@@ -207,7 +221,12 @@ formatter = { command = 'prettier', args = [
   "--parser",
   "html",
 ] }
-language-servers = ["vscode-html-language-server", "emmet-ls", "tailwindcss-ls", "htmx-ls"]
+language-servers = [
+  "vscode-html-language-server",
+  "emmet-ls",
+  "tailwindcss-ls",
+  "htmx-ls",
+]
 auto-format = true
 
 [[language]]
@@ -280,6 +299,8 @@ inlayHints.typeHints.hideClosureInitialization = false
 
 [language-server.rust-analyzer.config.check]
 command = "clippy"
+allTargets = true
+workspace = true
 
 
 [[language]]
@@ -335,18 +356,18 @@ file-types = [
 ]
 shebangs = ["sh", "bash", "dash", "zsh"]
 comment-token = "#"
-language-servers = [ "bash-language-server" ]
+language-servers = ["bash-language-server"]
 indent = { tab-width = 2, unit = "  " }
 
-[[language]]
-name = "corn"
-file-types = ["corn"]
-comment-tokens = ["//"]
-scope = "sources.corn"
+# [[language]]
+# name = "corn"
+# file-types = ["corn"]
+# comment-tokens = ["//"]
+# scope = "sources.corn"
 
-[[grammar]]
-name = "corn"
-source = { git = "https://github.com/corn-config/tree-sitter-corn.git" , rev = "464654742cbfd3a3de560aba120998f1d5dfa844" } 
+# [[grammar]]
+# name = "corn"
+# source = { git = "https://github.com/corn-config/tree-sitter-corn.git" , rev = "464654742cbfd3a3de560aba120998f1d5dfa844" } 
 
 # Latex
 
@@ -373,16 +394,15 @@ forwardSearchAfter = true
 onSave = true
 executable = "tectonic"
 args = [
-	"-X",
-	"compile",
-	"%f",
-	"--synctex",
-	"--keep-logs",
-	"--keep-intermediates",
-	"--outdir=aux",
+  "-X",
+  "compile",
+  "%f",
+  "--synctex",
+  "--keep-logs",
+  "--keep-intermediates",
+  "--outdir=aux",
 ]
 
 [language-server.texlab.config.texlab.forwardSearch]
 executable = "zathura"
-args = [ "--synctex-forward", "%l:%c:%f", "%p" ]
-
+args = ["--synctex-forward", "%l:%c:%f", "%p"]

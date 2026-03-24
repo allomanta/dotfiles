@@ -4,7 +4,7 @@ theme = 'mycat'
 line-number = "relative"
 color-modes = true
 bufferline = 'multiple'
-idle-timeout = 5
+idle-timeout = 0
 preview-completion-insert = false
 soft-wrap = { enable = true }
 popup-border = "all"
@@ -33,6 +33,10 @@ render = true
 display-inlay-hints = true
 
 [keys.normal]
+C-h = "jump_view_left"
+C-l = "jump_view_right"
+C-j = "jump_view_down"
+C-k = "jump_view_up"
 esc = ['collapse_selection', 'keep_primary_selection']
 A-k = "half_page_up"
 A-j = "half_page_down"
@@ -40,11 +44,49 @@ A-l = "goto_next_buffer"
 A-h = "goto_previous_buffer"
 A-w = ":buffer-close"
 
+A-K = [ # scroll selections up one line
+  "ensure_selections_forward",
+  "extend_to_line_bounds",
+  "extend_char_right",
+  "extend_char_left",
+  "delete_selection",
+  "move_line_up",
+  "add_newline_above",
+  "move_line_up",
+  "replace_with_yanked",
+]
+
+A-J = [ # scroll selections down one line
+  "ensure_selections_forward",
+  "extend_to_line_bounds",
+  "extend_char_right",
+  "extend_char_left",
+  "delete_selection",
+  "add_newline_below",
+  "move_line_down",
+  "replace_with_yanked",
+]
+
 [keys.insert]
 A-k = "half_page_up"
 A-j = "half_page_down"
 A-l = "goto_next_buffer"
 A-h = "goto_previous_buffer"
+A-K = [
+  "normal_mode",
+  "extend_to_line_bounds",
+  "delete_selection",
+  "move_line_up",
+  "paste_before",
+  "insert_mode",
+] # Move line up
+A-J = [
+  "normal_mode",
+  "extend_to_line_bounds",
+  "delete_selection",
+  "paste_after",
+  "insert_mode",
+] # Move line down
 
 [keys.select]
 A-k = "half_page_up"
@@ -59,6 +101,9 @@ h = ":toggle-option lsp.display-inlay-hints"
 w = ["save_selection", "goto_word"]
 
 [keys.normal.space]
+e = "@ d%sev error"
+E = "@ D%sev error"
+
 o = "file_picker_in_current_buffer_directory"
 # F = ":sh zellij run -c -f -x 8%% -y 8%% --width 85%% --height 85%% -- zsh ~/.config/helix/yazi-picker.sh %{buffer_name} open"
 F = [
@@ -70,7 +115,27 @@ F = [
   ':set mouse false',
   ':set mouse true',
 ]
-n = "@ /<ret>"
+L = [
+  ":new",
+  ":insert-output lazygit",
+  ":set mouse false",
+  ":set mouse true",
+  ":buffer-close!",
+  ":redraw",
+]
 
 [keys.normal.ret]
-t = [":write-all", ":insert-output serpl >/dev/tty", ":redraw", ":reload-all"]
+t = [
+  ":new",
+  ":insert-output scooter --no-stdin >/dev/tty",
+  ":set mouse false",
+  ":set mouse true",
+  ":buffer-close!",
+  ":redraw",
+]
+b = ":sh ~/.scripts/blame.sh %{buffer_name} %{cursor_line}" # Show blame information
+o = ":sh ~/.scripts/blame.sh --url-only %{cursor_line} %{buffer_name} | xargs -I{} open {}" # Open PR or commit url in browser
+[keys.normal.ret.y]
+f = [":echo %sh{echo '%{buffer_name}' | wl-copy}"]
+n = [":echo %sh{echo '%{cursor_line}' | wl-copy}"]
+c = [":echo %sh{echo '%{buffer_name} line %{cursor_line}' | wl-copy}"]
