@@ -1,3 +1,7 @@
 git:
   pagers:
     - externalDiffCommand: difft --color=always --display=inline
+      colorArg: always
+      # pager: delta --dark --paging=never
+os:
+  editPreset: 'helix'
