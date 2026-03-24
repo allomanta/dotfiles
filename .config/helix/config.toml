@@ -70,3 +70,7 @@ F = [
   ':set mouse false',
   ':set mouse true',
 ]
+n = "@ /<ret>"
+
+[keys.normal.ret]
+t = [":write-all", ":insert-output serpl >/dev/tty", ":redraw", ":reload-all"]
