@@ -12,39 +12,58 @@ config.color_scheme = 'Catppuccin Macchiato'
 config.hide_tab_bar_if_only_one_tab = true
 
 -- Window
-config.window_background_opacity = 0.8
-config.window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
+config.window_background_opacity = 0.9
+config.macos_window_background_blur = 20
+config.window_decorations = 'RESIZE'
 
 -- Font
 config.font = wezterm.font 'FiraCode Nerd Font'
-config.font_size = 11
+config.font_size = 12
 config.default_cursor_style = 'SteadyUnderline'
 
 -- History
 config.scrollback_lines = 10420
 
+
+
 -- Keys
 config.keys = {
   {
-    key = 'w',
-    mods = 'SUPER',
-    action = wezterm.action.DisableDefaultAssignment,
+    key = 'c',
+    mods = 'CMD',
+    action = wezterm.action.CopyTo 'Clipboard',
+  },
+  {
+    key = 'Escape',
+    mods = 'CMD',
+    action = wezterm.action.SendKey { key = 'Escape', mods = 'ALT'},
   },
   {
     key = 'Enter',
     mods = 'ALT',
     action = wezterm.action.DisableDefaultAssignment,
   },
-  {
+  { 
     key = "UpArrow",
     mods = "SHIFT",
     action = wezterm.action.ScrollToPrompt(-1)
   },
- {
-    key = "DownArrow",
-    mods = "SHIFT",
-    action = wezterm.action.ScrollToPrompt(1)
+ { 
+    key = "DownArrow", 
+    mods = "SHIFT", 
+    action = wezterm.action.ScrollToPrompt(1) 
   },
 }
+local all_characters = [[`1234567890-=qwertyuiop[]\asdfghjklJK;'zxbm,./]]
+
+for i = 1, #all_characters do
+  table.insert(config.keys, 
+  {
+    key = all_characters:sub(i, i),
+    mods = 'CMD',
+    action = wezterm.action.SendKey { key = all_characters:sub(i, i), mods = 'ALT'},
+  }
+  )
+end
 
 return config
