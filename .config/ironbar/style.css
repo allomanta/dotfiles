@@ -47,17 +47,39 @@
     color: #ed8796;
     background: none;
 }
+
 .wlogout:hover {
     color: #f5bde6;
     background: #363a4f;
     border-radius: 10px;
     transition: all 0.1s ease-in-out;
 }
+
 .volume {
     padding: 0px 10px;
     color: #b8c0e0;
     background: none;
 }
+
+.volume:hover {
+    color: #cad3f5;
+    border-radius: 10px;
+    transition: all 0.1s ease-in-out;
+}
+
+.notifications * {
+    padding: 0px 10px;
+    color: #b8c0e0;
+    background: none;
+    min-height: 0;
+}
+
+.notifications:hover {
+    color: #cad3f5;
+    border-radius: 10px;
+    transition: all 0.1s ease-in-out;
+}
+
 
 .brightnessButton {
     padding: 0px;
@@ -92,12 +114,6 @@
     padding: 0px 10px;
     color: #eed49f;
     background: none;
-}
-
-.volume:hover {
-    color: #cad3f5;
-    border-radius: 10px;
-    transition: all 0.1s ease-in-out;
 }
 
 .batteryButton {
@@ -137,8 +153,13 @@
     padding-right: 5px;
 }
 
+#bar .tray .item {
+    margin: 0px;
+    padding: 0px 2px;
+    min-height: 0;
+    background-color: black;
+}
 .tray {
-    opacity: 0.8;
     margin: 0px 10px;
     padding: 0px 10px;
     background-color: black;
@@ -146,6 +167,7 @@
     border-color: #B466FF;
     border-width: 1px;
     border-style: solid;
+    
 }
 
 .upower {

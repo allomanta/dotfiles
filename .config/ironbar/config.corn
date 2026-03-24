@@ -1,52 +1,69 @@
 let {
-    $tray = { type = "tray" }
 	$clock = {
-	    type = "clock"
-		format = "%l:%M %P   %e %B %Y "
-		format_popup = "%I:%M:%S %P"
+          type = "clock"
+          format = "%l:%M %P   %e %B %Y "
+          format_popup = "%I:%M:%S %P"
 	}
 
     $music = {
-      type = "music"
-      player_type = "mpris"
-      format = "{title}/{artist}"
-      truncate.mode = "end"
-      truncate.max_length = 30
-      icons.play = " "
-      icons.pause = " "
-      icons.prev = ""
-      icons.next = ""
-      music_dir = "/home/bluebyt/Music"
+          type = "music"
+          player_type = "mpris"
+          format = "{title}/{artist}"
+          truncate.mode = "end"
+          truncate.max_length = 30
+          icons.play = " "
+          icons.pause = " "
+          icons.prev = ""
+          icons.next = ""
+          music_dir = "/home/bluebyt/Music"
     }
 
     $tray = {
-        type = "tray"
-        icon_size = 14
+          type = "tray"
+          icon_size = 14
     }
 
-    $battery = {
-        type = "custom"
-        class = "battery"
-        bar = [{
-             type = "button"
-             on_click = "popup:toggle"
-             class = "batteryButton"
-             widgets = [{ 
-                  name = "battery"
-                  type = "cairo" 
-                  path = ".scripts/battery.lua" 
-                  frequency = 1000 
-                  width = 96 
-                  height = 12 
-             }]
-        }]
-        popup = [{
-             name = "batteryPopUp"
-             type = "script"
-             mode = "watch"
-             cmd = "~/.scripts/batry/target/release/batry | jq -r --unbuffered '\"\\(.status): \\( if .time_to_empty then .time_to_empty else .time_to_full end ) remaining at \\( .wattage)w\"'"
-        }]
-    }
+     $notifications = {
+          type = "notifications"
+          show_count = true
+          icons.closed_none = "󰍥"
+          icons.closed_some = "󱥂"
+          icons.closed_dnd = "󱅯"
+          icons.open_none = "󰍡"
+          icons.open_some = "󱥁"
+          icons.open_dnd = "󱅮"
+     }
+
+    $gpu = {
+          type = "script"
+          cmd = "/home/steven/.scripts/nvidia-power-state.sh"
+          mode = "poll"
+          interval = 2000
+     }
+
+     $battery = {
+          type = "custom"
+          class = "battery"
+          bar = [{
+               type = "button"
+               on_click = "popup:toggle"
+               class = "batteryButton"
+               widgets = [{ 
+                    name = "battery"
+                    type = "cairo" 
+                    path = ".scripts/battery.lua" 
+                    frequency = 1000 
+                    width = 96 
+                    height = 5 
+               }]
+          }]
+          popup = [{
+               name = "batteryPopUp"
+               type = "script"
+               mode = "watch"
+               cmd = "~/.scripts/batry/target/release/batry | jq -r --unbuffered '\"\\(.status): \\( if .time_to_empty then .time_to_empty else .time_to_full end ) remaining at \\( .wattage)w\"'"
+          }]
+     }
 
    //  $cava = {
    //      transition_type = "slide_end"
@@ -315,9 +332,20 @@ let {
         }]
     }
 
-    $start = [ $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $music ]
-    $center = [ $clock ]
-    $end = [ $audio_use $tray $volume $brightness $battery $wifi $bluetooth $wlogout ]
+     $start = [ $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $music ]
+     $center = [ $clock ]
+     $end = [
+          $audio_use
+          $gpu
+          $tray
+          $notifications
+          $volume
+          $brightness
+          $battery
+          $wifi
+          $bluetooth
+          $wlogout
+     ]
 }
 in {
         icon_theme = "Tela-circle-nord"
@@ -325,5 +353,5 @@ in {
         start = $start
         center = $center
         end = $end
-        height = 10
+        height = 5
 }
