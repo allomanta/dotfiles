@@ -7,7 +7,7 @@ local function entry()
 	local cwd = tostring(state())
 
 	local child, err =
-		Command("fzf"):args({"--ansi","--with-nth","2..", "--delimiter",":" ,
+		Command("fzf"):arg({"--ansi","--with-nth","2..", "--delimiter",":" ,
 		"--tiebreak","begin,index"}):cwd(cwd):stdin(Command.INHERIT):stdout(Command.PIPED):stderr(Command.INHERIT):spawn()
 
 	if not child then
@@ -24,7 +24,7 @@ local function entry()
 	local target = output.stdout:gsub("\n$", "")
 	target = target:gsub(": .*", "")
 	if target ~= "" then
-		ya.manager_emit(target:find("[/\\]$") and "cd" or "reveal", { target })
+		ya.emit(target:find("[/\\]$") and "cd" or "reveal", { target })
 	end
 end
 

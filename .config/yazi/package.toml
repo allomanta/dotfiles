@@ -1,37 +1,32 @@
 [[plugin.deps]]
-use = "yazi-rs/plugins:max-preview"
-rev = "71c4fc2"
-hash = "9bc26d10d2f6e2aa93b10905b1b76979"
-
-[[plugin.deps]]
 use = "yazi-rs/plugins:mount"
-rev = "0725851"
-hash = "b80e65240c1d0651e87d0200522bb079"
+rev = "63f9650"
+hash = "c0b6cd7dc830b96e77e5c8a71eec7926"
 
 [[plugin.deps]]
 use = "pirafrank/what-size"
-rev = "b23e3a4"
-hash = "98e5f5af3efd3ba8bc2db0720187cc83"
+rev = "0a4904c"
+hash = "fca231a128488a554823374f8f6d5241"
 
 [[plugin.deps]]
 use = "Lil-Dank/lazygit"
-rev = "9f924e3"
-hash = "2b0c33928986f126d5c5a4cac31a6b46"
+rev = "7a08a09"
+hash = "a1fa2b3e1826c3a34804ea8c548e9f80"
 
 [[plugin.deps]]
 use = "boydaihungst/restore"
-rev = "a7a6e5e"
-hash = "4d6e6cc76c8ce08b5f6f344aa9413034"
+rev = "86dff43"
+hash = "f99f16081c0efc8ed49df9b788f92671"
 
 [[plugin.deps]]
 use = "AnirudhG07/plugins-yazi:copy-file-contents"
-rev = "524c52c"
-hash = "27c50e6bc15c09096505b805b238ade0"
+rev = "907e292"
+hash = "a61930b827d8f1ef8fa016409de458ed"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:vcs-files"
-rev = "4b027c7"
-hash = "36405f8781fcaf33ceab24dffd5cea19"
+rev = "63f9650"
+hash = "70898957e9e4c1ca291ff26e8fdc434"
 
 [flavor]
 deps = []
