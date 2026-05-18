@@ -8,6 +8,8 @@ idle-timeout = 0
 preview-completion-insert = false
 soft-wrap = { enable = true }
 popup-border = "all"
+clipboard-provider = "wayland"
+
 
 [editor.statusline]
 center = ["file-type"]

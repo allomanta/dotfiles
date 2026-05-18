@@ -1,14 +1,14 @@
-[[language]]
-name = "tek"
-scope = "source.tek"
-injection-regex = "tek"
-roots = []
-comment-token = "//"
-file-types = ["ct", "tek"]
+# [[language]]
+# name = "tek"
+# scope = "source.tek"
+# injection-regex = "tek"
+# roots = []
+# comment-token = "//"
+# file-types = ["ct", "tek"]
 
-[[grammar]]
-name = "tek"
-source.path = "/home/steven/Documents/Programming/Teksty/tree-sitter-tek" 
+# [[grammar]]
+# name = "tek"
+# source.path = "/home/steven/Documents/Programming/Teksty/tree-sitter-tek" 
 
 [[language]]
 name = "rust"
@@ -30,15 +30,13 @@ args = { program = "{0}", initCommands = [
 
 [[language]]
 name = "c"
-formatter = { command = 'clang-format' }
+formatter = { command = "/home/steven/.scripts/uncrustify-rel.sh", args = ["%{buffer_name}"] }
 auto-format = true
-indent = { tab-width = 4, unit = "\t" }
 
 [[language]]
 name = "cpp"
-formatter = { command = 'clang-format' }
+formatter = { command = "/home/steven/.scripts/uncrustify-rel.sh", args = ["%{buffer_name}"] }
 auto-format = true
-indent = { tab-width = 4, unit = "\t" }
 
 # [language-server.htmx-ls]
 # command = "htmx-lsp2"
