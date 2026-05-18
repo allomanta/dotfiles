@@ -34,11 +34,6 @@ config.keys = {
     action = wezterm.action.CopyTo 'Clipboard',
   },
   {
-    key = 'Escape',
-    mods = 'CMD',
-    action = wezterm.action.SendKey { key = 'Escape', mods = 'ALT'},
-  },
-  {
     key = 'Enter',
     mods = 'ALT',
     action = wezterm.action.DisableDefaultAssignment,
@@ -55,15 +50,5 @@ config.keys = {
   },
 }
 local all_characters = [[`1234567890-=qwertyuiop[]\asdfghjklJK;'zxbm,./]]
-
-for i = 1, #all_characters do
-  table.insert(config.keys, 
-  {
-    key = all_characters:sub(i, i),
-    mods = 'CMD',
-    action = wezterm.action.SendKey { key = all_characters:sub(i, i), mods = 'ALT'},
-  }
-  )
-end
 
 return config
