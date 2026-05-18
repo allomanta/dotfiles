@@ -7,6 +7,7 @@ alias please='sudo $(fc -ln -1)'
 
 alias py='python'
 alias ipy='ipython'
+alias hx='TMUX=1 hx'
 alias helix='hx'
 
 alias murderbot='ssh -p 3141 steven@local.lageveen.co'
@@ -36,4 +37,23 @@ nav() {
     else
         builtin cd "${target%/*}"
     fi
+}
+
+
+ngpuenv() {
+  unset GSK_RENDERER
+  unset __EGL_VENDOR_LIBRARY_FILENAMES
+  unset __GLX_VENDOR_LIBRARY_NAME
+  unset __NV_PRIME_RENDER_OFFLOAD
+  export __NV_PRIME_RENDER_OFFLOAD=1
+  export __GLX_VENDOR_LIBRARY_NAME=nvidia
+  export __VK_LAYER_NV_optimus=NVIDIA_only
+}
+
+acgpuenv() {
+  export GSK_RENDERER=cairo
+  export __NV_PRIME_RENDER_OFFLOAD=0
+  export __GLX_VENDOR_LIBRARY_NAME=mesa
+  export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json
+  unset __VK_LAYER_NV_optimus
 }
