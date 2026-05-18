@@ -1,4 +1,16 @@
 let {
+     $inhibit = {
+      type = "inhibit"
+      durations = ["00:30:00" "inf"]
+      default_duration = "inf"
+      
+      format_on = " {duration}"
+      format_off = ""
+      
+      on_click_left = "toggle"
+      on_click_right = "cycle"
+    }
+
 	$clock = {
           type = "clock"
           format = "%l:%M %P   %e %B %Y "
@@ -36,9 +48,8 @@ let {
 
     $gpu = {
           type = "script"
-          cmd = "/home/steven/.scripts/nvidia-power-state.sh"
-          mode = "poll"
-          interval = 2000
+          cmd = "/home/steven/.scripts/nvidia-power-state.py"
+          mode = "watch"
      }
 
      $battery = {
@@ -172,9 +183,8 @@ let {
                   name = "wifi"
                   class = "wifi"
                   type = "script"
-                  mode = "poll"
+                  mode = "watch"
                   cmd = "~/.scripts/wifi-info.py"
-                  interval = 500
             }]
         }]
     }
@@ -333,17 +343,19 @@ let {
     }
 
      $start = [ $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $music ]
+     // $start = [ $music ]
      $center = [ $clock ]
      $end = [
-          $audio_use
           $gpu
+          $audio_use
           $tray
-          $notifications
+          $inhibit
           $volume
-          $brightness
           $battery
-          $wifi
+          $brightness
           $bluetooth
+          $wifi
+          $notifications
           $wlogout
      ]
 }
