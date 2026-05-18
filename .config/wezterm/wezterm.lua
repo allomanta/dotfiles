@@ -19,7 +19,7 @@ config.hide_tab_bar_if_only_one_tab = false
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
 config.colors = {
-  split = '#363a4f', -- Catppuccin Macchiato Surface0
+  split = '#363a4f', 
 }
 
 wezterm.on('update-right-status', function(window, pane)
@@ -40,37 +40,17 @@ wezterm.on('update-right-status', function(window, pane)
 end)
 
 config.keys = {
-  -- Entering Normal Mode traps unmapped keys using prevent_fallback = true
   {
     key = 'Escape',
     mods = 'ALT',
     action = act.ActivateKeyTable { name = 'normal', one_shot = false, prevent_fallback = true },
   },
-  {
-    key = 'g',
-    mods = 'CTRL',
-    action = act.ActivateKeyTable { name = 'normal', one_shot = false, prevent_fallback = true },
-  },
-  -- Retaining your custom shortcuts
   { key = 'c', mods = 'CMD', action = act.CopyTo 'Clipboard' },
   { key = 'Enter', mods = 'ALT', action = act.DisableDefaultAssignment },
-  { key = 'UpArrow', mods = 'SHIFT', action = act.ScrollToPrompt(-1) },
-  { key = 'DownArrow', mods = 'SHIFT', action = act.ScrollToPrompt(1) },
 }
 
--- Helper function to inject your Zellij "shared_except locked" shortcuts
 local function apply_shared_bindings(key_table)
   local shared = {
-    -- Alt + h/j/k/l or Alt + Arrows to navigate between splits instantly
-    { key = 'LeftArrow', mods = 'ALT', action = act.ActivatePaneDirection 'Left' },
-    { key = 'RightArrow', mods = 'ALT', action = act.ActivatePaneDirection 'Right' },
-    { key = 'UpArrow', mods = 'ALT', action = act.ActivatePaneDirection 'Up' },
-    { key = 'DownArrow', mods = 'ALT', action = act.ActivatePaneDirection 'Down' },
-    { key = 'h', mods = 'ALT', action = act.ActivatePaneDirection 'Left' },
-    { key = 'l', mods = 'ALT', action = act.ActivatePaneDirection 'Right' },
-    { key = 'j', mods = 'ALT', action = act.ActivatePaneDirection 'Down' },
-    { key = 'k', mods = 'ALT', action = act.ActivatePaneDirection 'Up' },
-    -- Pressing 'i' instantly locks the terminal back down
     { key = 'i', action = act.ClearKeyTableStack },
   }
   for _, binding in ipairs(shared) do
@@ -79,25 +59,43 @@ local function apply_shared_bindings(key_table)
 end
 
 local normal_mode = {
-  -- Switch into other modes, capturing/blocking passthrough cleanly
   { key = 'p', action = act.ActivateKeyTable { name = 'pane', one_shot = false, prevent_fallback = true, replace_current = true } },
   { key = 't', action = act.ActivateKeyTable { name = 'tab', one_shot = false, prevent_fallback = true, replace_current = true } },
   { key = 'r', action = act.ActivateKeyTable { name = 'resize', one_shot = false, prevent_fallback = true, replace_current = true } },
-  -- Direct navigation mapping
+  { key = 'f', action = act.TogglePaneZoomState },
+  { key = 'n', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+  { key = 'n', mods = "SHIFT", action = act.SpawnTab 'CurrentPaneDomain' },
+  { key = 'd', mods = "CTRL", action = act.CloseCurrentPane { confirm = true } },
+  { key = 'LeftArrow', action = act.ActivatePaneDirection 'Left' },
+  { key = 'RightArrow', action = act.ActivatePaneDirection 'Right' },
+  { key = 'DownArrow', action = act.ActivatePaneDirection 'Down' },
+  { key = 'UpArrow', action = act.ActivatePaneDirection 'Up' },
   { key = 'h', action = act.ActivatePaneDirection 'Left' },
   { key = 'l', action = act.ActivatePaneDirection 'Right' },
   { key = 'j', action = act.ActivatePaneDirection 'Down' },
   { key = 'k', action = act.ActivatePaneDirection 'Up' },
+  { key = 'LeftArrow', mods = "CTRL", action = act.AdjustPaneSize { 'Left', 1 } },
+  { key = 'RightArrow', mods = "CTRL", action = act.AdjustPaneSize { 'Right', 1 } },
+  { key = 'DownArrow', mods = "CTRL", action = act.AdjustPaneSize { 'Down', 1 } },
+  { key = 'UpArrow', mods = "CTRL", action = act.AdjustPaneSize { 'Up', 1 } },
+  { key = 'h', mods = "CTRL", action = act.AdjustPaneSize { 'Left', 1 } },
+  { key = 'l', mods = "CTRL", action = act.AdjustPaneSize { 'Right', 1 } },
+  { key = 'j', mods = "CTRL", action = act.AdjustPaneSize { 'Down', 1 } },
+  { key = 'k', mods = "CTRL", action = act.AdjustPaneSize { 'Up', 1 } },
 }
 apply_shared_bindings(normal_mode)
 
 local pane_mode = {
   { key = 'Escape', action = act.ActivateKeyTable { name = 'normal', one_shot = false, prevent_fallback = true, replace_current = true } },
-  { key = 'n', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } }, 
-  { key = 'v', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },   
+  { key = 'd', mods = "CTRL", action = act.CloseCurrentPane { confirm = true } },
+  { key = 'n', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+  { key = 'v', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
   { key = 'd', action = act.CloseCurrentPane { confirm = true } },
-  { key = 'f', action = act.TogglePaneZoomState },                              
-  -- Direct navigation inside Pane mode mapping
+  { key = 'f', action = act.TogglePaneZoomState },
+  { key = 'LeftArrow', action = act.ActivatePaneDirection 'Left' },
+  { key = 'RightArrow', action = act.ActivatePaneDirection 'Right' },
+  { key = 'DownArrow', action = act.ActivatePaneDirection 'Down' },
+  { key = 'UpArrow', action = act.ActivatePaneDirection 'Up' },
   { key = 'h', action = act.ActivatePaneDirection 'Left' },
   { key = 'l', action = act.ActivatePaneDirection 'Right' },
   { key = 'j', action = act.ActivatePaneDirection 'Down' },
@@ -107,15 +105,23 @@ apply_shared_bindings(pane_mode)
 
 local tab_mode = {
   { key = 'Escape', action = act.ActivateKeyTable { name = 'normal', one_shot = false, prevent_fallback = true, replace_current = true } },
+  { key = 'd', mods = "CTRL", action = act.CloseCurrentPane { confirm = true } },
   { key = 'n', action = act.SpawnTab 'CurrentPaneDomain' },
   { key = 'h', action = act.ActivateTabRelative(-1) },
   { key = 'l', action = act.ActivateTabRelative(1) },
+  { key = 'LeftArrow', action = act.ActivateTabRelative(1) },
+  { key = 'RightArrow', action = act.ActivateTabRelative(1) },
   { key = 'd', action = act.CloseCurrentTab { confirm = true } },
 }
 apply_shared_bindings(tab_mode)
 
 local resize_mode = {
   { key = 'Escape', action = act.ActivateKeyTable { name = 'normal', one_shot = false, prevent_fallback = true, replace_current = true } },
+  { key = 'd', mods = "CTRL", action = act.CloseCurrentPane { confirm = true } },
+  { key = 'LeftArrow', action = act.AdjustPaneSize { 'Left', 1 } },
+  { key = 'RightArrow', action = act.AdjustPaneSize { 'Right', 1 } },
+  { key = 'DownArrow', action = act.AdjustPaneSize { 'Down', 1 } },
+  { key = 'UpArrow', action = act.AdjustPaneSize { 'Up', 1 } },
   { key = 'h', action = act.AdjustPaneSize { 'Left', 1 } },
   { key = 'l', action = act.AdjustPaneSize { 'Right', 1 } },
   { key = 'j', action = act.AdjustPaneSize { 'Down', 1 } },
