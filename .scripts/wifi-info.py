@@ -1,41 +1,63 @@
-#!/bin/env python3
-import sh
+#!/usr/bin/env python3
+import subprocess
+import time
 
-name = "disconnected"
-state = ""
-signal = -90
+IFACE = "wlan0"
 
 
-def get_icon_from_strength():
+def icon(signal):
     if signal <= -90:
         return '<span color="#ed8796">󰤮</span>'
-    elif signal <= -80:
+    if signal <= -80:
         return '<span color="#ee99a0">󰤯</span>'
-    elif signal <= -60:
+    if signal <= -60:
         return '<span color="#f5a97f">󰤟</span>'
-    elif signal <= -50:
+    if signal <= -50:
         return '<span color="#eed49f">󰤢</span>'
-    elif signal <= -40:
+    if signal <= -40:
         return '<span color="#a6da95">󰤥</span>'
-    else:
-        return '<span color="#a6da95">󰤨</span>'
+    return '<span color="#a6da95">󰤨</span>'
 
 
-for line in (l.split() for l in sh.iwctl.station.wlan0.show().splitlines()):
-    if len(line) < 2:
-        continue
-    if line[0] == "Connected":
-        name = " ".join(line[2:])
-    elif line[0] == "State":
-        state = line[1]
-    elif line[0] == "RSSI":
-        signal = int(line[1])
+def get_wifi():
+    name = "disconnected"
+    state = ""
+    signal = -90
 
-if state == "connected":
-    name = f'<span color="#a6da95">{name}</span>'
-    icon = get_icon_from_strength()
-else:
-    name = f'<span color="#ed8796">{name}</span>'
-    icon = '<span color="#ed8796">󰤮</span>'
+    out = subprocess.run(
+        ["iwctl", "station", IFACE, "show"],
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        timeout=2,
+    ).stdout
 
-print(name, icon)
+    for row in out.splitlines():
+        parts = row.split()
+        if len(parts) < 2:
+            continue
+        if parts[0] == "Connected":
+            name = " ".join(parts[2:])
+        elif parts[0] == "State":
+            state = parts[1]
+        elif parts[0] == "RSSI":
+            signal = int(parts[1])
+
+    if state == "connected":
+        return f'<span color="#a6da95">{name}</span> {icon(signal)}'
+    return f'<span color="#ed8796">{name}</span> <span color="#ed8796">󰤮</span>'
+
+
+last = None
+
+while True:
+    try:
+        current = get_wifi()
+    except Exception:
+        current = '<span color="#ed8796">disconnected</span> <span color="#ed8796">󰤮</span>'
+
+    if current != last:
+        print(current, flush=True)
+        last = current
+
+    time.sleep(5)
