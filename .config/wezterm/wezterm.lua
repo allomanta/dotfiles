@@ -19,8 +19,11 @@ config.hide_tab_bar_if_only_one_tab = false
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
 config.colors = {
-  split = '#363a4f', 
-}
+  split = '#ca83cb', }
+
+local resurrect = wezterm.plugin.require(
+  'https://github.com/MLFlexer/resurrect.wezterm'
+)
 
 wezterm.on('update-right-status', function(window, pane)
 
@@ -49,6 +52,18 @@ config.keys = {
   { key = 'Enter', mods = 'ALT', action = act.DisableDefaultAssignment },
 }
 
+local function prompt_rename_tab()
+  return act.PromptInputLine {
+    description = 'Enter new name for tab',
+    action = wezterm.action_callback(function(window, pane, line)
+      -- line is nil if you press Escape
+      if line and #line > 0 then
+        window:active_tab():set_title(line)
+      end
+    end),
+  }
+end
+
 local function apply_shared_bindings(key_table)
   local shared = {
     { key = 'i', action = act.ClearKeyTableStack },
@@ -58,20 +73,122 @@ local function apply_shared_bindings(key_table)
   end
 end
 
+local function activate_pane_or_tab(direction, tab_delta)
+  return wezterm.action_callback(function(window, pane)
+    local tab = window:active_tab()
+    local target_pane = tab:get_pane_direction(direction)
+
+    if target_pane ~= nil then
+      window:perform_action(act.ActivatePaneDirection(direction), pane)
+    else
+      window:perform_action(act.ActivateTabRelative(tab_delta), pane)
+    end
+  end)
+end
+
+local function prompt_save_window_layout()
+  return act.PromptInputLine {
+    description = 'Name this window layout',
+    action = wezterm.action_callback(function(window, pane, line)
+      if not line or line == '' then
+        return
+      end
+
+      resurrect.state_manager.save_state(
+        resurrect.window_state.get_window_state(window:mux_window()),
+        line
+      )
+
+      window:toast_notification(
+        'wezterm',
+        'Saved window layout: ' .. line,
+        nil,
+        3000
+      )
+    end),
+  }
+end
+
+local function delete_saved_layout()
+  return wezterm.action_callback(function(window, pane)
+    resurrect.fuzzy_loader.fuzzy_load(window, pane, function(id)
+      resurrect.state_manager.delete_state(id)
+
+      window:toast_notification(
+        'wezterm',
+        'Deleted saved layout',
+        nil,
+        3000
+      )
+    end, {
+      title = 'Delete Saved Layout',
+      description = 'Select layout to delete and press Enter',
+      fuzzy_description = 'Search layout to delete: ',
+      is_fuzzy = true,
+
+      -- Since you are saving window layouts only:
+      ignore_workspaces = true,
+      ignore_tabs = true,
+      ignore_windows = false,
+    })
+  end)
+end
+
+local function restore_window_layout_in_current_window()
+  return wezterm.action_callback(function(window, pane)
+    resurrect.fuzzy_loader.fuzzy_load(window, pane, function(id, label)
+      local type = string.match(id, '^([^/]+)')
+      local name = string.match(id, '([^/]+)$')
+      name = string.match(name, '(.+)%..+$')
+
+      if type ~= 'window' then
+        window:toast_notification(
+          'wezterm',
+          'Pick a saved window layout',
+          nil,
+          3000
+        )
+        return
+      end
+
+      local state = resurrect.state_manager.load_state(name, 'window')
+
+      resurrect.window_state.restore_window(pane:window(), state, {
+        close_open_tabs = true,
+        window = pane:window(),
+        relative = true,
+        restore_text = true,
+        resize_window = false,
+        on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+      })
+    end, {
+      title = 'Load Window Layout',
+      description = 'Select a window layout and press Enter',
+      fuzzy_description = 'Search window layout: ',
+      ignore_workspaces = true,
+      ignore_tabs = true,
+      ignore_windows = false,
+    })
+  end)
+end
+
 local normal_mode = {
+  { key = 's', mods = 'SHIFT', action = act.Multiple({act.ClearKeyTableStack, prompt_save_window_layout()}) },
+  { key = 'o', mods = 'SHIFT', action = act.Multiple({act.ClearKeyTableStack,restore_window_layout_in_current_window()}) },
+  { key = 'x', mods = 'SHIFT', action = act.Multiple({act.ClearKeyTableStack,delete_saved_layout()}) },
   { key = 'p', action = act.ActivateKeyTable { name = 'pane', one_shot = false, prevent_fallback = true, replace_current = true } },
   { key = 't', action = act.ActivateKeyTable { name = 'tab', one_shot = false, prevent_fallback = true, replace_current = true } },
   { key = 'r', action = act.ActivateKeyTable { name = 'resize', one_shot = false, prevent_fallback = true, replace_current = true } },
   { key = 'f', action = act.TogglePaneZoomState },
-  { key = 'n', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
-  { key = 'n', mods = "SHIFT", action = act.SpawnTab 'CurrentPaneDomain' },
+  { key = 'n', mods = "SHIFT", action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+  { key = 'n', action = act.SpawnTab 'CurrentPaneDomain' },
   { key = 'd', mods = "CTRL", action = act.CloseCurrentPane { confirm = true } },
-  { key = 'LeftArrow', action = act.ActivatePaneDirection 'Left' },
-  { key = 'RightArrow', action = act.ActivatePaneDirection 'Right' },
+  { key = 'LeftArrow', action = activate_pane_or_tab ('Left', -1) },
+  { key = 'RightArrow', action = activate_pane_or_tab ('Right', 1) },
   { key = 'DownArrow', action = act.ActivatePaneDirection 'Down' },
   { key = 'UpArrow', action = act.ActivatePaneDirection 'Up' },
-  { key = 'h', action = act.ActivatePaneDirection 'Left' },
-  { key = 'l', action = act.ActivatePaneDirection 'Right' },
+  { key = 'h', action = activate_pane_or_tab ('Left', -1) },
+  { key = 'l', action = activate_pane_or_tab ('Right', 1) },
   { key = 'j', action = act.ActivatePaneDirection 'Down' },
   { key = 'k', action = act.ActivatePaneDirection 'Up' },
   { key = 'LeftArrow', mods = "CTRL", action = act.AdjustPaneSize { 'Left', 1 } },
@@ -82,7 +199,15 @@ local normal_mode = {
   { key = 'l', mods = "CTRL", action = act.AdjustPaneSize { 'Right', 1 } },
   { key = 'j', mods = "CTRL", action = act.AdjustPaneSize { 'Down', 1 } },
   { key = 'k', mods = "CTRL", action = act.AdjustPaneSize { 'Up', 1 } },
-}
+  { key = '1', action = act.ActivateTab(0) },
+  { key = '2', action = act.ActivateTab(1) },
+  { key = '3', action = act.ActivateTab(2) },
+  { key = '4', action = act.ActivateTab(3) },
+  { key = '5', action = act.ActivateTab(4) },
+  { key = '6', action = act.ActivateTab(5) },
+  { key = '7', action = act.ActivateTab(6) },
+  { key = '8', action = act.ActivateTab(7) },
+  { key = '9', action = act.ActivateTab(8) },}
 apply_shared_bindings(normal_mode)
 
 local pane_mode = {
@@ -92,12 +217,12 @@ local pane_mode = {
   { key = 'v', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
   { key = 'd', action = act.CloseCurrentPane { confirm = true } },
   { key = 'f', action = act.TogglePaneZoomState },
-  { key = 'LeftArrow', action = act.ActivatePaneDirection 'Left' },
-  { key = 'RightArrow', action = act.ActivatePaneDirection 'Right' },
+  { key = 'LeftArrow', action = activate_pane_or_tab ('Left', -1) },
+  { key = 'RightArrow', action = activate_pane_or_tab ('Right', 1) },
   { key = 'DownArrow', action = act.ActivatePaneDirection 'Down' },
   { key = 'UpArrow', action = act.ActivatePaneDirection 'Up' },
-  { key = 'h', action = act.ActivatePaneDirection 'Left' },
-  { key = 'l', action = act.ActivatePaneDirection 'Right' },
+  { key = 'h', action = activate_pane_or_tab ('Left', -1) },
+  { key = 'l', action = activate_pane_or_tab ('Right', 1) },
   { key = 'j', action = act.ActivatePaneDirection 'Down' },
   { key = 'k', action = act.ActivatePaneDirection 'Up' },
 }
@@ -105,6 +230,7 @@ apply_shared_bindings(pane_mode)
 
 local tab_mode = {
   { key = 'Escape', action = act.ActivateKeyTable { name = 'normal', one_shot = false, prevent_fallback = true, replace_current = true } },
+  { key = 'r', action = prompt_rename_tab() },
   { key = 'd', mods = "CTRL", action = act.CloseCurrentPane { confirm = true } },
   { key = 'n', action = act.SpawnTab 'CurrentPaneDomain' },
   { key = 'h', action = act.ActivateTabRelative(-1) },
@@ -112,6 +238,15 @@ local tab_mode = {
   { key = 'LeftArrow', action = act.ActivateTabRelative(1) },
   { key = 'RightArrow', action = act.ActivateTabRelative(1) },
   { key = 'd', action = act.CloseCurrentTab { confirm = true } },
+  { key = '1', action = act.ActivateTab(0) },
+  { key = '2', action = act.ActivateTab(1) },
+  { key = '3', action = act.ActivateTab(2) },
+  { key = '4', action = act.ActivateTab(3) },
+  { key = '5', action = act.ActivateTab(4) },
+  { key = '6', action = act.ActivateTab(5) },
+  { key = '7', action = act.ActivateTab(6) },
+  { key = '8', action = act.ActivateTab(7) },
+  { key = '9', action = act.ActivateTab(8) },
 }
 apply_shared_bindings(tab_mode)
 

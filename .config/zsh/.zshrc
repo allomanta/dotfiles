@@ -26,4 +26,4 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 source "$ZDOTDIR"/helix-mode/helix-mode.zsh
 
-source ~/.scripts/zellij-sessions.zsh
+# source ~/.scripts/zellij-sessions.zsh
