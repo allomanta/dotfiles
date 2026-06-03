@@ -41,11 +41,24 @@ auto-format = true
 # [language-server.htmx-ls]
 # command = "htmx-lsp2"
 
+[language-server.tinymist]
+command = "tinymist"
+
+[language-server.tinymist.config]
+typstExtraArgs = ["main.typ"]
+
+preview.background.enabled = true
+preview.background.args = [
+  "--data-plane-host=127.0.0.1:23635",
+  # "--invert-colors=auto",
+  "--open",
+]
+
 [[language]]
 name = "typst"
 scope = "source.typst"
 injection-regex = "typst"
-roots = []
+roots = ["main.typ", "typst.toml", ".git"]
 comment-token = "//"
 file-types = ["typ"]
 indent = { tab-width = 2, unit = "\t" }
@@ -53,17 +66,6 @@ language-servers = ["tinymist"]
 formatter = { command = "typstyle" }
 auto-format = true
 soft-wrap.wrap-at-text-width = true
-
-[language-server.tinymist]
-command = "tinymist"
-
-[language-server.tinymist.config]
-preview.background.enabled = true
-preview.background.args = [
-  "--data-plane-host=127.0.0.1:23635",
-  # "--invert-colors=auto",
-  "--open",
-]
 
 [[language]]
 name = "c-sharp"

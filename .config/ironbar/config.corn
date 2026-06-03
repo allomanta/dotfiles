@@ -65,7 +65,7 @@ let {
                     path = ".scripts/battery.lua" 
                     frequency = 1000 
                     width = 96 
-                    height = 5 
+                    height = 20 
                }]
           }]
           popup = [{
@@ -165,9 +165,8 @@ let {
                   name = "bt"
                   class = "bt"
                   type = "script"
-                  mode = "poll"
+                  mode = "watch"
                   cmd = "~/.scripts/bt-info.py"
-                  interval = 1000
             }]
        }]
     }
@@ -366,4 +365,5 @@ in {
         center = $center
         end = $end
         height = 5
+        popup_autohide = true
 }

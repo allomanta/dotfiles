@@ -1,43 +1,107 @@
-#!/bin/env python3
-import pydbus
+#!/usr/bin/env python3
 
-bus = pydbus.SystemBus()
+from gi.repository import GLib
+from pydbus import SystemBus
 
-adapter = bus.get("org.bluez", "/org/bluez/hci0")
-mngr = bus.get("org.bluez", "/")
+BLUEZ = "org.bluez"
+ADAPTER_PATH = "/org/bluez/hci0"
 
-green = "#a6da95"
-dark = "#6e738d"
-flamingo = "#f0c6c6"
-maroon = "#ee99a0"
-peach = "#f5a97f"
+GREEN = "#a6da95"
+DARK = "#6e738d"
+FLAMINGO = "#f0c6c6"
+MAROON = "#ee99a0"
+PEACH = "#f5a97f"
 
+bus = SystemBus()
+adapter = bus.get(BLUEZ, ADAPTER_PATH)
+manager = bus.get(BLUEZ, "/")
 
-def first_connected_device():
-    # print(dir(adapter))
-    mngd_objs = mngr.GetManagedObjects()
-    for path in mngd_objs:
-        con_state = mngd_objs[path].get("org.bluez.Device1", {}).get("Connected", False)
-        if con_state:
-            return mngd_objs[path].get("org.bluez.Device1", {}).get("Name")
-    return ""
+last_output = None
+update_queued = False
 
 
-if not adapter.Powered:
-    print(f'<span color="{dark}">󰂲</span>')
-else:
-    name = first_connected_device()
-    if name:
-        print(f'<span color="{green}">{name[:15] + (name[15:] and '...')} </span>')
-    else:
-        color = green
+def render_state() -> str:
+    try:
+        if not adapter.Powered:
+            return f'<span color="{DARK}">󰂲</span>'
+
+        name = ""
+
+        for obj in manager.GetManagedObjects().values():
+            dev = obj.get("org.bluez.Device1")
+            if dev and dev.get("Connected", False):
+                name = dev.get("Alias") or dev.get("Name") or ""
+                break
+
+        if name:
+            short_name = name[:15] + ("..." if len(name) > 15 else "")
+            return f'<span color="{GREEN}">{short_name} </span>'
+
+        color = GREEN
+
         if not adapter.Discoverable and adapter.Pairable:
-            color = flamingo
+            color = FLAMINGO
         elif not adapter.Pairable:
-            color = peach
+            color = PEACH
         elif not adapter.Connectable:
-            color = maroon
+            color = MAROON
 
-        print(f'<span color="{color}">󰂯</span>')
+        return f'<span color="{color}">󰂯</span>'
 
-# list_connected_devices()
+    except Exception:
+        # BlueZ may briefly disappear/restart. Keep the script alive.
+        return f'<span color="{MAROON}">󰂯!</span>'
+
+
+def schedule_update(*_args) -> None:
+    global last_output, update_queued
+
+    if update_queued:
+        return
+
+    update_queued = True
+
+    def update_once() -> bool:
+        global last_output, update_queued
+
+        output = render_state()
+
+        if output != last_output:
+            print(output, flush=True)
+            last_output = output
+
+        update_queued = False
+        return False
+
+    GLib.timeout_add(250, update_once)
+
+
+# Initial output.
+schedule_update()
+
+bus.subscribe(
+    sender=BLUEZ,
+    iface="org.freedesktop.DBus.Properties",
+    signal="PropertiesChanged",
+    signal_fired=lambda _sender, path, _iface, _signal, params: (
+        schedule_update()
+        if path.startswith("/org/bluez/") and params[0] in ("org.bluez.Adapter1", "org.bluez.Device1")
+        else None
+    ),
+)
+
+bus.subscribe(
+    sender=BLUEZ,
+    iface="org.freedesktop.DBus.ObjectManager",
+    signal="InterfacesAdded",
+    signal_fired=lambda _sender, path, *_args: (schedule_update() if path.startswith("/org/bluez/") else None),
+)
+
+bus.subscribe(
+    sender=BLUEZ,
+    iface="org.freedesktop.DBus.ObjectManager",
+    signal="InterfacesRemoved",
+    signal_fired=lambda _sender, path, *_args: (schedule_update() if path.startswith("/org/bluez/") else None),
+)
+
+GLib.MainLoop().run()
