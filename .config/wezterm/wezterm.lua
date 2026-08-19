@@ -6,9 +6,16 @@ if wezterm.config_builder() then
   config = wezterm.config_builder()
 end
 
-config.color_scheme = 'Catppuccin Macchiato'
+
+config.front_end = 'OpenGL'
+config.prefer_egl = true
+config.enable_wayland = true
+config.wayland_window_background_blur = true
+
 config.window_background_opacity = 0.9
-config.macos_window_background_blur = 20
+config.color_scheme = 'Catppuccin Macchiato'
+-- config.macos_window_background_blur = 20
+config.wayland_window_background_blur = true
 config.window_decorations = 'RESIZE'
 config.font = wezterm.font 'FiraCode Nerd Font'
 config.font_size = 12
@@ -19,7 +26,8 @@ config.hide_tab_bar_if_only_one_tab = false
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
 config.colors = {
-  split = '#ca83cb', }
+  split = '#ca83cb',
+}
 
 local resurrect = wezterm.plugin.require(
   'https://github.com/MLFlexer/resurrect.wezterm'
