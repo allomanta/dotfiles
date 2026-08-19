@@ -30,12 +30,12 @@ args = { program = "{0}", initCommands = [
 
 [[language]]
 name = "c"
-formatter = { command = "/home/steven/.scripts/uncrustify-rel.sh", args = ["%{buffer_name}"] }
+formatter = { command = "uncrustify", args = ["-l", "CPP", "--no-backup"] }
 auto-format = true
 
 [[language]]
 name = "cpp"
-formatter = { command = "/home/steven/.scripts/uncrustify-rel.sh", args = ["%{buffer_name}"] }
+formatter = { command = "sh", args = ["-c", "uncrustify -c \"$(git rev-parse --show-toplevel)/style.cfg\" -l CPP --no-backup"] }
 auto-format = true
 
 # [language-server.htmx-ls]

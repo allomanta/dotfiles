@@ -1,5 +1,5 @@
-.gitignore
-.config/helix/runtime
+*.gitignore
+.config/helix/runtime/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
