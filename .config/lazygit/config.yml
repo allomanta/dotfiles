@@ -1,7 +1,9 @@
 git:
-  pagers:
-    - externalDiffCommand: difft --color=always --display=inline
+  diffRenderers:
+    - command: difft --color=always --display=inline
       colorArg: always
       # pager: delta --dark --paging=never
+
+      type: extDiff
 os:
   editPreset: 'helix'
