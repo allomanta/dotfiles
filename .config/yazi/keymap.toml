@@ -408,7 +408,7 @@ keymap = [
   { on = [
     "g",
     "p",
-  ], run = "cd ~/Programming", desc = "Go to the programming directory" },
+  ], run = "cd ~/Projects", desc = "Go to the programming directory" },
   { on = [
     "g",
     "b",
