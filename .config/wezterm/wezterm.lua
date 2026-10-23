@@ -6,14 +6,9 @@ if wezterm.config_builder() then
   config = wezterm.config_builder()
 end
 
-
-config.front_end = 'OpenGL'
-config.prefer_egl = true
-config.enable_wayland = true
-config.wayland_window_background_blur = true
+config.color_scheme = 'Catppuccin Macchiato'
 
 config.window_background_opacity = 0.9
-config.color_scheme = 'Catppuccin Macchiato'
 -- config.macos_window_background_blur = 20
 config.wayland_window_background_blur = true
 config.window_decorations = 'RESIZE'
