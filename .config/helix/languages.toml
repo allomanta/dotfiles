@@ -35,7 +35,7 @@ auto-format = true
 
 [[language]]
 name = "cpp"
-formatter = { command = "sh", args = ["-c", "uncrustify -c \"$(git rev-parse --show-toplevel)/style.cfg\" -l CPP --no-backup"] }
+formatter = { command = "sh", args = ["-c", "uncrustify -c \"$(git rev-parse --show-toplevel)/uncrustify.cfg\" -l CPP --no-backup"] }
 auto-format = true
 
 # [language-server.htmx-ls]
@@ -406,3 +406,11 @@ args = [
 [language-server.texlab.config.texlab.forwardSearch]
 executable = "zathura"
 args = ["--synctex-forward", "%l:%c:%f", "%p"]
+
+[[language]]
+name = "slint"
+auto-format = true
+
+[language-server.slint-lsp]
+command = "slint-lsp"
+args = ["-Lui=./ui"]

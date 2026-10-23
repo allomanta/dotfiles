@@ -11,3 +11,4 @@ pnpm-lock.yaml
 Code/Crashpad
 *.so
 package-lock.json
+runtime
