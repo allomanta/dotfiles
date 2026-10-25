@@ -13,14 +13,32 @@ MAROON = "#ee99a0"
 PEACH = "#f5a97f"
 
 bus = SystemBus()
-adapter = bus.get(BLUEZ, ADAPTER_PATH)
 manager = bus.get(BLUEZ, "/")
+
+_adapter = None
+
+
+def get_adapter():
+    """Return the cached adapter proxy, or None while BlueZ has no hci0."""
+    global _adapter
+    if _adapter is None:
+        try:
+            _adapter = bus.get(BLUEZ, ADAPTER_PATH)
+        except Exception:
+            return None
+    return _adapter
+
 
 last_output = None
 update_queued = False
 
 
 def render_state() -> str:
+    global _adapter
+    adapter = get_adapter()
+    if adapter is None:
+        return f'<span color="{DARK}">󰂲</span>'
+
     try:
         if not adapter.Powered:
             return f'<span color="{DARK}">󰂲</span>'
@@ -49,7 +67,7 @@ def render_state() -> str:
         return f'<span color="{color}">󰂯</span>'
 
     except Exception:
-        # BlueZ may briefly disappear/restart. Keep the script alive.
+        _adapter = None
         return f'<span color="{MAROON}">󰂯!</span>'
 
 
@@ -76,7 +94,6 @@ def schedule_update(*_args) -> None:
     GLib.timeout_add(250, update_once)
 
 
-# Initial output.
 schedule_update()
 
 bus.subscribe(
