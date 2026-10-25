@@ -1,7 +1,7 @@
-screenshots
 effect-blur=8x4
 show-failed-attempts
 submit-on-touch
 clock
 indicator
 indicator-caps-lock
+color=1e1e2e

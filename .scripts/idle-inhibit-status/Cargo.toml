@@ -1,0 +1,14 @@
+[package]
+name = "idle-inhibit-status"
+version = "0.1.0"
+edition = "2021"
+description = "Report whether idle is inhibited on a Wayland compositor (ext-idle-notify-v1 v2), optionally combined with Stasis"
+
+[dependencies]
+wayland-client = "0.31"
+wayland-protocols = { version = "0.32", features = ["client", "staging"] }
+
+[profile.release]
+lto = true
+strip = true
+codegen-units = 1

@@ -1,0 +1,28 @@
+# Local package: run `makepkg -si` from this packaging/ directory.
+pkgname=idle-inhibit-status
+pkgver=0.1.0
+pkgrel=2
+pkgdesc="Report whether idle is inhibited on a Wayland compositor (for status bars)"
+arch=('x86_64')
+license=('MIT')
+depends=('glibc' 'gcc-libs')
+makedepends=('cargo')
+optdepends=('stasis: include Stasis blockers with --stasis')
+options=('!lto' '!debug')
+
+prepare() {
+  cd "$startdir/.."
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$startdir/.."
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR="$srcdir/target"
+  cargo build --frozen --release
+}
+
+package() {
+  install -Dm755 "$srcdir/target/release/$pkgname" "$pkgdir/usr/bin/$pkgname"
+}

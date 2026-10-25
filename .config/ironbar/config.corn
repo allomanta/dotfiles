@@ -85,12 +85,12 @@ let {
    //      cmd = "/home/bluebyt/.config/ironbar/scripts/cava"
    // }
 
-   $audio_use = {
-        name = "audio-use"
+   $idle_status = {
+        name = "idle-status"
         class = "audioUse"
         type = "script"
         mode = "watch"
-        cmd = "sway-audio-idle-inhibit --dry-print-both-waybar | jq -r --unbuffered .class | sed -u 's/output/󰽴/; s/input/󰍮/; s/-/ /; s/none/ /'"
+        cmd = "idle-inhibit-status --stasis | sed -u 's/^inhibited$/󰽴/; s/^active$//; s/^unknown$//'"
     }
 
    $brightness = {
@@ -346,12 +346,12 @@ let {
      $center = [ $clock ]
      $end = [
           $gpu
-          $audio_use
+          $idle_status
           $tray
           $inhibit
+          $brightness
           $volume
           $battery
-          $brightness
           $bluetooth
           $wifi
           $notifications
