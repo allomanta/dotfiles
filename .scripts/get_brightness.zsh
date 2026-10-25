@@ -1,10 +1,14 @@
 #!/bin/zsh
-max_brightness=$(</sys/class/backlight/amdgpu_bl2/max_brightness)
-inotifywait -q -m -e close_write /sys/class/backlight/amdgpu_bl2/brightness|
+dev=( /sys/class/backlight/amdgpu_bl*(N[1]) )
+[[ -n $dev ]] || dev=( /sys/class/backlight/*(N[1]) )
+[[ -n $dev ]] || { echo "no backlight device found" >&2; exit 1; }
+
+max_brightness=$(<$dev/max_brightness)
+inotifywait -q -m -e close_write $dev/brightness|
 
 
 while 
-  brightness=$(</sys/class/backlight/amdgpu_bl2/brightness)
+  brightness=$(<$dev/brightness)
   percentage=$((brightness * 100 / max_brightness))
 
   if [[ $1 ]]; then
