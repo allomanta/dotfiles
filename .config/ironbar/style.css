@@ -412,20 +412,71 @@ tooltip * {
 }
 
 
-/* --- */ 
+/* Tray context menus ------------------------------------------------------ */
+/* `* { all: unset }` strips the popover background, so restore it here. */
+
+popover.menu > contents,
+.tray popover > contents {
+    padding: 4px;
+    color: #cad3f5;
+    background-color: rgba(36, 39, 58, 0.95);
+    border-radius: 10px;
+    border: 2px solid #B466FF;
+}
+
+popover.menu modelbutton {
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+popover.menu modelbutton:hover,
+popover.menu modelbutton:selected {
+    background-color: #363a4f;
+}
+
+popover.menu modelbutton:disabled {
+    color: #6e738d;
+}
+
+popover.menu separator {
+    min-height: 1px;
+    margin: 4px 2px;
+    background-color: #494d64;
+}
+
+popover.menu check,
+popover.menu radio {
+    min-width: 14px;
+    min-height: 14px;
+    margin-right: 6px;
+}
+
+popover.menu check:checked {
+    -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
+}
+
+popover.menu radio:checked {
+    -gtk-icon-source: -gtk-icontheme("radio-checked-symbolic");
+}
+
+popover.menu modelbutton arrow {
+    min-width: 14px;
+    min-height: 14px;
+    -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+}
+
+popover.menu modelbutton arrow.left {
+    -gtk-icon-source: -gtk-icontheme("pan-start-symbolic");
+}
+
+
+/* Heights ----------------------------------------------------------------- */
 
 #bar,
 #bar #start,
 #bar #center,
 #bar #end {
     min-height: 20px;
-}
-
-#bar #start,
-#bar #center,
-#bar #end {
-    margin: 0px;
-    padding: 0px;
 }
 
 button,
@@ -444,16 +495,7 @@ button,
     min-height: 20px;
 }
 
-.battery,
-.batteryButton {
+.battery {
     min-height: 20px;
-}
-
-.batteryButton {
-    padding: 0px 0px 0px 10px;
-}
-
-.batteryButton:hover {
-    background-color: transparent;
 }
 

@@ -27,7 +27,7 @@ let {
           icons.pause = " "
           icons.prev = ""
           icons.next = ""
-          music_dir = "/home/bluebyt/Music"
+          music_dir = "/home/steven/Music"
     }
 
     $tray = {
@@ -115,7 +115,8 @@ let {
              type = "slider"
              value = {
                  type = "script"
-                 mode = "watch"
+                 mode = "poll"
+                 interval = 1000
                  cmd = "~/.scripts/get_brightness.zsh 1"
             }
              // value = "echo 80"
@@ -138,7 +139,6 @@ let {
       icons.muted = "󰝟 "
       on_scroll_down = "volumectl down"
       on_scroll_up = "volumectl up"
-      tooltip = "{{/home/bluebyt/.config/ironbar/scripts/volume}}%"
     }
 
     $wlogout = {

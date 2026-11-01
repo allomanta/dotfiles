@@ -4,6 +4,13 @@ dev=( /sys/class/backlight/amdgpu_bl*(N[1]) )
 [[ -n $dev ]] || { echo "no backlight device found" >&2; exit 1; }
 
 max_brightness=$(<$dev/max_brightness)
+
+# With an argument, print the bare percentage once and exit (polled by the popup slider)
+if [[ $1 ]]; then
+  echo $(( $(<$dev/brightness) * 100 / max_brightness ))
+  exit
+fi
+
 inotifywait -q -m -e close_write $dev/brightness|
 
 
