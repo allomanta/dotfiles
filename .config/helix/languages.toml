@@ -411,6 +411,3 @@ args = ["--synctex-forward", "%l:%c:%f", "%p"]
 name = "slint"
 auto-format = true
 
-[language-server.slint-lsp]
-command = "slint-lsp"
-args = ["-Lui=./ui"]
