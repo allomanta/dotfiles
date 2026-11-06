@@ -1,0 +1,40 @@
+@author "steven"
+@description "Stasis on Wayfire"
+
+default:
+  enable_loginctl_integration true
+  enable_dbus_inhibit true
+  monitor_media true
+  ignore_remote_media true
+  suspend_inhibit_media [ ]
+  monitor_games true
+  monitor_gamepad true
+  pause_on_lid_close true
+  inhibit_apps [ ]
+  suspend_inhibit_apps [ ]
+  debounce_seconds 0
+  notify_before_action false
+  pre_suspend_command "/home/steven/.scripts/lock.sh"
+
+  ac:
+    lock_screen:
+      timeout 600
+      command "/home/steven/.scripts/lock.sh --wait"
+    end
+    suspend:
+      timeout 400
+      command "systemctl suspend-then-hibernate"
+    end
+  end
+
+  battery:
+    lock_screen:
+      timeout 600
+      command "/home/steven/.scripts/lock.sh --wait"
+    end
+    suspend:
+      timeout 400
+      command "systemctl suspend-then-hibernate"
+    end
+  end
+end
