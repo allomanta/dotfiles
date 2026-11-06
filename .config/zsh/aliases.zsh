@@ -1,4 +1,37 @@
-alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"
+# `dotfiles add <path>` also allowlists paths blocked by the catch-all rules in info/exclude
+dotfiles() {
+    local git=(/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME)
+    local exclude=$HOME/.dotfiles.git/info/exclude
+    local arg abs rel top entry rule
+
+    if [[ $1 == add ]]; then
+        for arg in "${@:2}"; do
+            [[ $arg == -* ]] && continue
+            abs=${arg:a}
+            [[ $abs == $HOME/* && -e $abs ]] || continue
+            rel=${abs#$HOME/}
+
+            # Only act on the allowlist catch-alls; other ignores (*.bak, ...) stay ignored
+            rule=$("${git[@]}" -C $HOME check-ignore -v --no-index -- $rel 2>/dev/null | cut -f1)
+            [[ $rule == *:/\* || $rule == *:/.config/\* ]] || continue
+
+            if [[ $rel == .config/* ]]; then
+                top=.config/${${rel#.config/}%%/*}
+            else
+                top=${rel%%/*}
+            fi
+            entry="!/$top"
+            [[ -d $HOME/$top ]] && entry+=/
+
+            if ! grep -qxF -- $entry $exclude; then
+                print -r -- $entry >> $exclude
+                print "allowlisted $entry"
+            fi
+        done
+    fi
+
+    "${git[@]}" "$@"
+}
 alias lazydots="lazygit --git-dir=$HOME/.dotfiles.git --work-tree=$HOME"
 
 alias update-packages='paru -Syu'
