@@ -1,0 +1,51 @@
+default partial alphanumeric_keys
+xkb_symbols "steven" {
+    include "us(basic)" // Use the US Qwerty layout as a base
+    include "level3(ralt_switch)"
+
+    name[Group1]= "Steven custom";
+
+    key <LSGT> { [ grave, asciitilde ] };                                      // ` ~
+
+    key <TLDE> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ grave, asciitilde, U221E, NoSymbol ] };        // ` ~ ∞
+
+    key <AC01> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ a, A, U2200, U03B1 ] };                        // a A ∀ α
+    key <AB05> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ b, B, b, U03B2 ] };                            // b B b β
+    key <AB03> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ c, C, c, U03B3 ] };                            // c C c γ
+    key <AC03> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ d, D, U2202, U03B4 ] };                        // d D ∂ δ
+    key <AD03> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ e, E, U2203, U03B5 ] };                        // e E ∃ ε
+    key <AC04> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ f, F, NoSymbol, NoSymbol ] };                  // f F
+    key <AC05> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ g, G, NoSymbol, NoSymbol ] };                  // g G
+    key <AC06> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ h, H, h, U03B7 ] };                            // h H h η
+    key <AD08> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ i, I, U222B, U03B9 ] };                        // i I ∫ ι
+    key <AC07> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ j, J, NoSymbol, NoSymbol ] };                  // j J
+    key <AC08> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ k, K, k, U03BA ] };                            // k K k κ
+    key <AC09> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ l, L, U03BB, U039B ] };                        // l L λ Λ
+    key <AB07> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ m, M, m, U03BC ] };                            // m M m μ
+    key <AB06> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ n, N, U03B7, U03BD ] };                        // n N η ν
+    key <AD09> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ o, O, NoSymbol, NoSymbol ] };                  // o O
+    key <AD10> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ p, P, U03C1, U03C0 ] };                        // p P ρ π
+    key <AD01> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ q, Q, U03C6, U03A6 ] };                        // q Q φ Φ
+    key <AD04> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ r, R, r, U03C1 ] };                            // r R r ρ
+    key <AC02> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ s, S, U2211, U03C3 ] };                        // s S ∑ σ
+    key <AD05> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ t, T, t, U03C4 ] };                            // t T t τ
+    key <AD07> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ u, U, U03BC, U2210 ] };                        // u U μ ∐
+    key <AB04> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ v, V, v, U03BD ] };                            // v V v ν
+    key <AD02> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ w, W, U03C9, U03A9 ] };                        // w W ω Ω
+    key <AB02> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ x, X, x, U03C7 ] };                            // x X x χ
+    key <AD06> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ y, Y, U03C8, U03A8 ] };                        // y Y ψ Ψ
+    key <AB01> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ z, Z, U03BE, U03B6 ] };                        // z Z ξ ζ
+
+    key <AE01> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ 1, exclam, NoSymbol, NoSymbol ] };             // 1 !
+    key <AE02> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ 2, at, U221A, NoSymbol ] };                    // 2 @ √
+    key <AE03> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ 3, numbersign, U220A, U220D ] };               // 3 # ∊ ∍
+    key <AE04> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ 4, dollar, EuroSign, NoSymbol ] };             // 4 $ €
+    key <AE05> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ 5, percent, logicaland, NoSymbol ] };          // 5 % ∧
+    key <AE06> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ 6, asciicircum, logicalor, NoSymbol ] };       // 6 ^ ∨
+    key <AE07> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ 7, ampersand, U2207, U2208 ] };                // 7 & ∇ ∈
+    key <AE08> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ 8, asterisk, U2297, U2219 ] };                 // 8 * ⊗ ∙
+    key <AE09> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ 9, parenleft, NoSymbol, NoSymbol ] };          // 9 (
+    key <AE10> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ 0, parenright, U2205, NoSymbol ] };            // 0 ) ∅
+    key <AE11> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ minus, underscore, U2213, NoSymbol ] };        // - _ ∓
+    key <AE12> { type[Group1] = "FOUR_LEVEL", symbols[Group1] = [ equal, plus, U00B1, U2295 ] };                 // = + ± ⊕
+};
