@@ -11,9 +11,6 @@
 
 # source ./gambit.zsh
 
-# Load more completions
-fpath=($DOTFILES/zsh/plugins/zsh-completions/src $fpath)
-
 # Should be called before compinit
 zmodload zsh/complist
 
@@ -30,8 +27,26 @@ bindkey -M menuselect '^xh' accept-and-hold                # Hold
 bindkey -M menuselect '^xn' accept-and-infer-next-history  # Next
 bindkey -M menuselect '^xu' undo                           # Undo
 
-autoload -U compinit; compinit
+autoload -Uz compinit; compinit
 _comp_options+=(globdots) # With hidden files
+
+# Carapace only for installed commands zsh has no completion for, so zsh's own completers
+# (git, ssh, ...) and the zstyles below keep working. Cached, since `carapace --list` takes ~70ms.
+if (( $+commands[carapace] )); then
+    carapace_cache=$XDG_CACHE_HOME/zsh/carapace
+    if [[ ! -s $carapace_cache/init.zsh || $commands[carapace] -nt $carapace_cache/init.zsh ]]; then
+        mkdir -p $carapace_cache
+        carapace _carapace zsh | grep -v '^compdef ' >| $carapace_cache/init.zsh
+        carapace --list | jq -r 'keys[]' >| $carapace_cache/commands
+    fi
+    source $carapace_cache/init.zsh
+    carapace_cmds=()
+    for cmd in ${(f)"$(<$carapace_cache/commands)"}; do
+        (( $+commands[$cmd] && ! $+_comps[$cmd] )) && carapace_cmds+=$cmd
+    done
+    (( $#carapace_cmds )) && compdef _carapace_completer $carapace_cmds
+    unset carapace_cache carapace_cmds cmd
+fi
 
 # Only work with the Zsh function vman
 # See $DOTFILES/zsh/scripts.zsh

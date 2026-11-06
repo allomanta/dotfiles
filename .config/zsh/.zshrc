@@ -1,9 +1,5 @@
-source "$HOME"/.zshenv 
 source "$ZDOTDIR"/aliases.zsh
 source "$ZDOTDIR"/widgets.zsh
-
-autoload -Uz compinit; compinit
-_comp_options+=(globdots) # With hidden files
 source "$ZDOTDIR"/completions.zsh
 
 # Options
