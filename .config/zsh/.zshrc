@@ -18,10 +18,11 @@ eval "$(starship init zsh)"
 eval "$(zoxide init zsh --cmd cd)"
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export HX_CLIPBOARD_COPY="wl-copy -n"
 export HX_CLIPBOARD_PASTE="wl-paste -n"
 source "$ZDOTDIR"/helix-mode/helix-mode.zsh
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # source ~/.scripts/zellij-sessions.zsh
