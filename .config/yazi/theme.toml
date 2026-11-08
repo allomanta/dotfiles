@@ -79,7 +79,7 @@ selected = { reversed = true }
 
 # : Select {{{
 
-[select]
+[pick]
 border = { fg = "#8aadf4" }
 active = { fg = "#f5bde6" }
 inactive = {}
