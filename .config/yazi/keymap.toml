@@ -138,7 +138,7 @@ keymap = [
   # Operation
   { on = [
     "<A-d>",
-  ], run = "shell -- dragon-drop -x -T -a \"$@\" ", desc = "Open drag and drop window" },
+  ], run = "shell -- dragon-drop -x -T -a %s", desc = "Open drag and drop window" },
   { on = [
     "o",
   ], run = "open --interactive", desc = "Open the selected files interactively" },
